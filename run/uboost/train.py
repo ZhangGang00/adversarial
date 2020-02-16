@@ -34,7 +34,7 @@ def main (args):
 
     # Loading data
     # --------------------------------------------------------------------------
-    data, features, _ = load_data(args.input + 'data_1M_10M.h5')
+    data, features, _ = load_data(args.input + 'data.h5')
     #data = data.sample(frac=0.5, random_state=32)  # @TEMP
     data = data[data['train'] == 1]
 

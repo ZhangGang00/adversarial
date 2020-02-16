@@ -172,6 +172,7 @@ def perform_studies (data, args, tagger_features, ann_vars, uboost_vars):
     masscuts  = [True, False]
     pt_ranges = [None, (200, 500), (500, 1000), (1000, 2000)]
 
+    '''
     # Perform combined robustness study
     with Profile("Study: Robustness"):
         for masscut in masscuts:
@@ -206,6 +207,7 @@ def perform_studies (data, args, tagger_features, ann_vars, uboost_vars):
             studies.distribution(data, args, feat, pt_range, mass_range)
             pass
         pass
+    '''
 
     # Perform ROC study
     with Profile("Study: ROC"):

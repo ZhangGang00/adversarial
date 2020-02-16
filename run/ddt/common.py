@@ -19,9 +19,9 @@ from adversarial.profile import profile
 # Common definition(s)
 BINS = np.linspace(-1, 6, 7 * 4 + 1, endpoint=True)  # Binning in rhoDDT
 FIT_RANGE = (1.5, 4.0) # Range in rhoDDT to be fitted
-VAR_TAU21  = 'fjet_tau21_wta' # 'Tau21'
-VAR_RHODDT = 'fjet_rhoDDT'    # 'rhoDDT'
-VAR_WEIGHT = 'mcEventWeight'  # 'weight_test'
+VAR_TAU21  = 'Tau21' # 'Tau21'
+VAR_RHODDT = 'rhoDDT'    # 'rhoDDT'
+VAR_WEIGHT = 'weight_test'  # 'weight_test'
 
 @profile
 def add_ddt (data, feat=VAR_TAU21, newfeat=None, path='models/ddt/ddt.pkl.gz'):
