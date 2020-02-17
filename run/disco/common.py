@@ -82,23 +82,15 @@ def initialise_config (args, cfg):
 
     # If the `model/architecture` parameter is provided as an int, convert
     # to list of empty dicts
-    for network in ['classifier', 'adversary']:
+    for network in ['classifier']:
         if isinstance(cfg[network]['model']['architecture'], int):
             cfg[network]['model']['architecture'] = [{} for _ in range(cfg[network]['model']['architecture'])]
             pass
         pass
 
-    # Scale loss_weights[0] by 1./(1. + lambda_reg)
-    cfg['combined']['compile']['loss_weights'][0] *= 1./(1. + cfg['combined']['model']['lambda_reg'])
-
-    # Set adversary learning rate (LR) ratio from ratio of loss_weights
-    try:
-        cfg['combined']['model']['lr_ratio'] = cfg['combined']['compile']['loss_weights'][0] / \
-                                               cfg['combined']['compile']['loss_weights'][1]
-    except KeyError: pass
 
     # Multiply batch size by number of devices, to ensure equal splits.
-    for model in ['classifier', 'combined']:
+    for model in ['classifier']:
         cfg[model]['fit']['batch_size'] *= args.devices
         pass
 
@@ -141,7 +133,7 @@ def initialise_config (args, cfg):
     # Evaluate the 'optimizer' fields for each model, once and for all
     # @NOTE: This should be done _last_, to ensure that `lr` and `decay` have
     #        been properly transformed, if necessary.
-    for model in ['classifier', 'combined']:
+    for model in ['classifier']:
         opts = cfg[model]['compile']
         opts['optimizer'] = eval("keras.optimizers.{}(lr={}, decay={})" \
                                  .format(opts['optimizer'],

@@ -42,12 +42,16 @@ def DisCo(y_true, y_pred, x_in, alpha = 0.):
     #Note that the decorrelating feature is also used for learning.
    
     print 'x_in = ',x_in
-    X = tf.gather(x_in, [0], axis=1) #decorrelate with the second element of the input (=mass)
-    #X = K.variable(x_in[1]) #decorrelate with the second element of the input (=mass)
-    #X = x_in #decorrelate with the second element of the input (=mass)
-    Y = y_pred
-    print 'X shape: ', X.get_shape()
-    print 'Y shape: ', Y.get_shape()
+    X_in = tf.gather(x_in, [0], axis=1) #decorrelate with the second element of the input (=mass)
+    #X_in = K.variable(x_in[0]) #decorrelate with the second element of the input (=mass)
+    Y_in = y_pred
+    print 'X_in shape: ', X_in.get_shape()
+    print 'Y_in shape: ', Y_in.get_shape()
+
+    mymaskX = tf.where(Y_in<1,K.ones_like(X_in, dtype=bool),K.zeros_like(X_in, dtype=bool))
+    mymaskY = tf.where(Y_in<1,K.ones_like(Y_in, dtype=bool),K.zeros_like(Y_in, dtype=bool))
+    X = tf.boolean_mask(X_in, mymaskX)
+    Y = tf.boolean_mask(Y_in, mymaskY)
 
     LX = K.shape(X)[0]
     LY = K.shape(Y)[0]
@@ -122,15 +126,17 @@ def main (args):
 
     # Loading data
     # --------------------------------------------------------------------------
-    data, features, features_decorrelation = load_data(args.input + 'data_10000.h5', train=True)
-    #data, features, features_decorrelation = load_data(args.input + 'data.h5', train=True)
+    #data, features, features_decorrelation = load_data(args.input + 'data_10000.h5', train=True)
+    data, features, features_decorrelation = load_data(args.input + 'data.h5', train=True)
     features.insert(0,'m')
     num_features = len(features)
 
     # Regulsarisation parameter
-    lambda_reg = cfg['combined']['model']['lambda_reg']  # Use same `lambda` as the adversary
+    lambda_reg = cfg['classifier']['lambda_reg']  
     digits = int(np.ceil(max(-np.log10(lambda_reg), 0)))
     lambda_str = '{l:.{d:d}f}'.format(d=digits,l=lambda_reg).replace('.', 'p')
+    print 'lambda_reg = ',lambda_reg
+    print 'lambda_str = ',lambda_str
 
     # Get standard-formatted decorrelation inputs
     decorrelation = get_decorrelation_variables(data)
@@ -146,7 +152,7 @@ def main (args):
     data['weight_adv'] = pd.Series(np.multiply(data['weight_adv'].values,  1. - data['signal'].values), index=data.index)
 
     # Create custom Disco loss 
-    #cfg['classifier']['compile']['loss'] = lambda y_true, y_pred: DisCo(y_true, y_pred, data['m'].values, alpha = 2.)
+    #cfg['classifier']['compile']['loss'] = lambda y_true, y_pred: DisCo(y_true, y_pred, data['m'].values, alpha = lambda_reg)
 
 
     # Classifier-only fit, cross-validation
@@ -154,7 +160,7 @@ def main (args):
     with Profile("Classifier-only fit, cross-validation"):
 
         # Define variable(s)
-        basename = 'crossval_classifier'
+        basename = 'crossval_classifier_lambda{}'.format(lambda_str)
         basedir  = 'models/disco/classifier/crossval/'
 
         # Get indices for each fold in stratified k-fold training
@@ -186,7 +192,7 @@ def main (args):
                     parallelised = parallelise_model(classifier, args)
 
                     # Create custom Disco loss 
-                    cfg['classifier']['compile']['loss'] = lambda y_true, y_pred: DisCo(y_true, y_pred, parallelised.input, alpha = 2.)
+                    cfg['classifier']['compile']['loss'] = lambda y_true, y_pred: DisCo(y_true, y_pred, parallelised.input, alpha = lambda_reg)
 
                     # Compile model (necessary to save properly)
                     parallelised.compile(**cfg['classifier']['compile'])
@@ -275,7 +281,7 @@ def main (args):
     with Profile("Classifier-only fit, full"):
 
         # Define variable(s)
-        name    = 'classifier'
+        name    = 'classifier_lambda{}'.format(lambda_str)
         basedir = 'models/disco/classifier/full/'
 
         if args.train or args.train_classifier:
@@ -291,7 +297,7 @@ def main (args):
             parallelised = parallelise_model(classifier, args)
 
             # Create custom Disco loss 
-            cfg['classifier']['compile']['loss'] = lambda y_true, y_pred: DisCo(y_true, y_pred, parallelised.input, alpha = 2.)
+            cfg['classifier']['compile']['loss'] = lambda y_true, y_pred: DisCo(y_true, y_pred, parallelised.input, alpha = lambda_reg)
 
             # Compile model (necessary to save properly)
             parallelised.compile(**cfg['classifier']['compile'])
@@ -311,7 +317,6 @@ def main (args):
             M = data['m'].values
             print 'Main X shape:', X.shape
             print 'Main Y shape:', Y.shape
-            print 'Main M shape:', M.shape
             #print data['m']
 
             # Fit classifier model
@@ -322,7 +327,7 @@ def main (args):
             save([args.output, basedir], name, classifier, ret.history)
 
             # Saving classifier in lwtnn-friendly format.
-            lwtnn_save(classifier, 'disco', basedir='models/disco/lwtnn/')
+            lwtnn_save(classifier, 'disco_lambda{}'.format(lambda_str), basedir='models/disco/lwtnn/')
 
         else:
 

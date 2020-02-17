@@ -1,3 +1,4 @@
+#python -m run.disco.train --optimise-classifier --config='./configs/default_disco.json'
 
 python -m run.disco.train --train-classifier --config='./configs/default_disco.json'
 
