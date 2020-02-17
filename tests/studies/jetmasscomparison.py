@@ -44,7 +44,8 @@ def jetmasscomparison (data, args, features, eff_sig=50):
         pass
 
     # Perform plotting
-    c = plot(data, args, features, msks_pass, eff_sig)
+    c = rp.canvas(batch=True, num_pads=(2,3))
+    #c = plot(data, args, features, msks_pass, eff_sig)
 
     # Perform plotting on individual figures
     plot_individual(data, args, features, msks_pass, eff_sig)

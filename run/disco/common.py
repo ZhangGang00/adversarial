@@ -21,7 +21,7 @@ from adversarial.profile import profile
 
 
 @profile
-def add_nn (data, clf, newfeat=None):
+def add_disco (data, clf, newfeat=None):
     """
     Add neural network tagger from `clf to `data`. Modifies `data` in-place.
 
@@ -34,7 +34,9 @@ def add_nn (data, clf, newfeat=None):
     assert newfeat is not None, "Please specify an output feature name"
 
     # Add NN-classifier variable to DataFrame
-    data[newfeat] = pd.Series(clf.predict(data[INPUT_VARIABLES].values, batch_size=8192).flatten(), index=data.index)
+    features = INPUT_VARIABLES
+    features.insert(0, 'm')
+    data[newfeat] = pd.Series(clf.predict(data[features].values, batch_size=8192).flatten(), index=data.index)
     return
 
 

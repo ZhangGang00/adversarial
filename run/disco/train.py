@@ -124,6 +124,7 @@ def main (args):
     # --------------------------------------------------------------------------
     data, features, features_decorrelation = load_data(args.input + 'data_10000.h5', train=True)
     #data, features, features_decorrelation = load_data(args.input + 'data.h5', train=True)
+    features.insert(0,'m')
     num_features = len(features)
 
     # Regulsarisation parameter
@@ -148,7 +149,6 @@ def main (args):
     #cfg['classifier']['compile']['loss'] = lambda y_true, y_pred: DisCo(y_true, y_pred, data['m'].values, alpha = 2.)
 
 
-    '''
     # Classifier-only fit, cross-validation
     # --------------------------------------------------------------------------
     with Profile("Classifier-only fit, cross-validation"):
@@ -184,6 +184,9 @@ def main (args):
                     # @NOTE: Store reference to base model to allow for saving.
                     #        Cf. [https://github.com/keras-team/keras/issues/8446#issuecomment-343559454]
                     parallelised = parallelise_model(classifier, args)
+
+                    # Create custom Disco loss 
+                    cfg['classifier']['compile']['loss'] = lambda y_true, y_pred: DisCo(y_true, y_pred, parallelised.input, alpha = 2.)
 
                     # Compile model (necessary to save properly)
                     parallelised.compile(**cfg['classifier']['compile'])
@@ -234,8 +237,9 @@ def main (args):
                     pass
                 pass # end: k-fold cross-validation
             pass
-        else:
 
+        '''
+        else:
             # Load pre-trained classifiers
             log.info("Loading cross-validation classifiers from file")
             try:
@@ -252,6 +256,7 @@ def main (args):
                 pass
 
             pass # end: train/load
+        '''
         pass
 
 
@@ -263,7 +268,6 @@ def main (args):
         val_avg = np.mean([hist['val_loss'] for hist in histories], axis=0)
         val_std = np.std ([hist['val_loss'] for hist in histories], axis=0)
         return val_avg[-1] + val_std[-1]
-    '''
 
 
     # Classifier-only fit, full
@@ -318,7 +322,7 @@ def main (args):
             save([args.output, basedir], name, classifier, ret.history)
 
             # Saving classifier in lwtnn-friendly format.
-            lwtnn_save(classifier, 'nn')
+            lwtnn_save(classifier, 'disco', basedir='models/disco/lwtnn/')
 
         else:
 

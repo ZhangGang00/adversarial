@@ -1,5 +1,5 @@
 **.pyc
-**.out
+#**.out
 **/db/**
 **patches**
 **.log
@@ -20,7 +20,7 @@ logs**
 figures**
 input**
 output**
-models**
+#models**
 # ^TEMP
 
 # Setuptools

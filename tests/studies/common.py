@@ -18,7 +18,7 @@ from adversarial.utils import mkdir, garbage_collect, JSD, MASSBINS
 
 # Custom import(s)
 import rootplotting as rp
-rp.colours.pop(3)  # To remove unused colour from list
+#rp.colours.pop(3)  # To remove unused colour from list
 
 # Global variable definition(s)
 HISTSTYLE = {  # key = signal / passing

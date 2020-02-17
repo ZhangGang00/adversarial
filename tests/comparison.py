@@ -56,6 +56,7 @@ def main (args):
 
     # Load data
     data, features, _ = load_data(args.input + 'data.h5', test=True)
+    #data, features, _ = load_data(args.input + 'data_10000.h5', test=True)
 
 
     # Common definitions
@@ -94,7 +95,7 @@ def main (args):
     uboost_pattern = 'uboost_ur_{{:4.2f}}_te_{:.0f}_rel21_fixed'.format(uboost_eff)
 
     # Tagger feature collection
-    tagger_features = ['Tau21','Tau21DDT', 'D2', kNN_var, 'D2', 'D2CSS', 'NN', ann_var, 'Adaboost', uboost_var]
+    tagger_features = ['Tau21','Tau21DDT', 'D2', kNN_var, 'D2', 'D2CSS', 'NN', ann_var, 'Adaboost', uboost_var, 'NN', 'DisCo']
 
 
     # Add variables
@@ -151,6 +152,16 @@ def main (args):
             uboost_vars.pop(0)
             pass
 
+        # DisCo
+        from run.disco.common import add_disco
+        from run.disco.train import DisCo
+        from keras.losses import binary_crossentropy
+        with Profile("DisCo"):
+            #classifier = load_model('models/disco/classifier/full/classifier.h5', custom_objects={'<lambda>':DisCo})
+            classifier = load_model('models/disco/classifier/full/classifier.h5', custom_objects={'<lambda>':binary_crossentropy})
+            add_disco(data, classifier, 'DisCo')
+            pass
+
         pass
 
     # Remove unused variables
@@ -185,6 +196,7 @@ def perform_studies (data, args, tagger_features, ann_vars, uboost_vars):
         studies.jetmasscomparison(data, args, tagger_features)
         pass
 
+    '''
     # Perform summary plot study
     with Profile("Study: Summary plot"):
         regex_nn = re.compile('\#lambda=[\d\.]+')
@@ -199,6 +211,7 @@ def perform_studies (data, args, tagger_features, ann_vars, uboost_vars):
             pass
         pass
 
+    '''
     # Perform distributions study
     with Profile("Study: Substructure tagger distributions"):
         mass_ranges = np.linspace(50, 300, 5 + 1, endpoint=True)
@@ -207,7 +220,6 @@ def perform_studies (data, args, tagger_features, ann_vars, uboost_vars):
             studies.distribution(data, args, feat, pt_range, mass_range)
             pass
         pass
-    '''
 
     # Perform ROC study
     with Profile("Study: ROC"):
@@ -229,6 +241,7 @@ def perform_studies (data, args, tagger_features, ann_vars, uboost_vars):
             studies.efficiency(data, args, feat)
             pass
         pass
+    '''
 
     return
 
