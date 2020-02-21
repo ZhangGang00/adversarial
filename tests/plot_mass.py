@@ -117,6 +117,7 @@ def main (args):
     # --------------------------------------------------------------------------
     with Profile("Add variables"):
 
+        '''
         # Tau21DDT
         from run.ddt.common import add_ddt
         add_ddt(data, path='models/ddt/ddt.pkl.gz')
@@ -167,6 +168,7 @@ def main (args):
             # Remove `Adaboost` from scan list
             uboost_vars.pop(0)
             pass
+        '''
 
         # DisCo
         from run.disco.common import add_disco
@@ -182,88 +184,22 @@ def main (args):
 
         pass
 
+    '''
     # Remove unused variables
     used_variables = set(tagger_features + ann_vars + uboost_vars + disco_vars + ['m', 'pt', 'npv', 'weight_test'])
     unused_variables = [var for var in list(data) if var not in used_variables]
     data.drop(columns=unused_variables)
     gc.collect()
+    '''
 
-    # Perform performance studies
-    perform_studies (data, args, tagger_features, ann_vars, uboost_vars, disco_vars)
+    # Perform jet mass distribution study
+    with Profile("Study: Jet mass"):
+        studies.jetmass(data, args, 'DisCo(#lambda=1)')
+        studies.jetmass(data, args, 'DisCo(#lambda=5)')
+        studies.jetmass(data, args, 'DisCo(#lambda=50)')
+        pass
 
     return 0
-
-
-def perform_studies (data, args, tagger_features, ann_vars, uboost_vars, disco_vars):
-    """
-    Method delegating performance studies.
-    """
-    masscuts  = [False, True]
-    pt_ranges = [None, (200, 500), (500, 1000), (1000, 2000)]
-
-    '''
-    # Perform jet mass distribution comparison study
-    with Profile("Study: Jet mass comparison"):
-        studies.jetmasscomparison(data, args, tagger_features)
-        pass
-
-    # Perform ROC study
-    with Profile("Study: ROC"):
-        for masscut, pt_range in itertools.product(masscuts, pt_ranges):
-            studies.roc(data, args, tagger_features, masscut=masscut, pt_range=pt_range)
-            pass
-        pass
-    '''
-
-    # Perform summary plot study
-    with Profile("Study: Summary plot"):
-        regex_nn = re.compile('\#lambda=[\d\.]+')
-        regex_ub = re.compile('\#alpha=[\d\.]+')
-        regex_disco = re.compile('\#lambda=[\d\.]+')
-
-        scan_features = {'NN':       map(lambda feat: (feat, regex_nn.search(feat).group(0)), ann_vars),
-                         'Adaboost': map(lambda feat: (feat, regex_ub.search(feat).group(0)), uboost_vars),
-                         'DisCo(#lambda=0)':    map(lambda feat: (feat, regex_disco.search(feat).group(0)), disco_vars)
-                         }
-
-        for masscut, pt_range in itertools.product(masscuts, pt_ranges):
-            studies.summary(data, args, tagger_features, scan_features, masscut=masscut, pt_range=pt_range)
-            pass
-        pass
-
-    '''
-    # Perform combined robustness study
-    with Profile("Study: Robustness"):
-        for masscut in masscuts:
-            studies.robustness_full(data, args, tagger_features, masscut=masscut)
-            pass
-        pass
-
-    # Perform distributions study
-    with Profile("Study: Substructure tagger distributions"):
-        mass_ranges = np.linspace(50, 300, 5 + 1, endpoint=True)
-        mass_ranges = [None] + zip(mass_ranges[:-1], mass_ranges[1:])
-        for feat, pt_range, mass_range in itertools.product(tagger_features, pt_ranges, mass_ranges):  # tagger_features
-            studies.distribution(data, args, feat, pt_range, mass_range)
-            pass
-        pass
-
-    # Perform JSD study
-    with Profile("Study: JSD"):
-        for pt_range in pt_ranges:
-            studies.jsd(data, args, tagger_features, pt_range)
-            pass
-        pass
-
-    # Perform efficiency study
-    with Profile("Study: Efficiency"):
-        for feat in tagger_features:
-            studies.efficiency(data, args, feat)
-            pass
-        pass
-    '''
-
-    return
 
 
 # Main function call

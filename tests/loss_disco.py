@@ -58,7 +58,7 @@ def plot_classifier_training_loss (num_folds, basedir='models/disco/classifier/c
         pass
 
     # Get paths to classifier training losses
-    paths = sorted(glob.glob(basedir + '/history__crossval_classifier__*of{}.json'.format(num_folds)))
+    paths = sorted(glob.glob(basedir + '/history__crossval_classifier_lambda10__*of{}.json'.format(num_folds)))
 
     if len(paths) == 0:
         print "No models found for classifier CV study."
@@ -72,8 +72,8 @@ def plot_classifier_training_loss (num_folds, basedir='models/disco/classifier/c
             pass
 
         loss = np.array(d['val_loss'])
-        print "Outliers:", loss[np.abs(loss - 0.72) < 0.02]
-        loss[np.abs(loss - 0.72) < 0.02] = np.nan  # @FIXME: This probably isn't completely kosher
+        #print "Outliers:", loss[np.abs(loss - 0.72) < 0.02]
+        #loss[np.abs(loss - 0.72) < 0.02] = np.nan  # @FIXME: This probably isn't completely kosher
         losses['val'].append(loss)
         loss = np.array(d['loss'])
         losses['train'].append(loss)
@@ -115,7 +115,7 @@ def plot_classifier_training_loss (num_folds, basedir='models/disco/classifier/c
     c.xlabel("Training epoch")
     c.ylabel("Cross-validation classifier loss, L_{clf}")
     c.xlim(0, max(bins))
-    c.ylim(0.3, 0.5)
+    c.ylim(0.3, 1)
     c.legend(categories=categories, width=0.25)  # ..., xmin=0.475
     c.text(TEXT + ["#it{W} jet tagging", "Neural network (NN) + DisCo classifier"],
            qualifier=QUALIFIER)

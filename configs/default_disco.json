@@ -19,7 +19,7 @@
       	    "decay":     1.0E-03,
       	    "optimizer": "Adam"
       	},
-      	"lambda_reg": 10.0
+      	"lambda_reg": 100.0
     }
 
 }

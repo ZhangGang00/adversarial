@@ -291,7 +291,7 @@ def main (args):
             classifier = classifier_model(num_features, **cfg['classifier']['model'])
 
             # Save classifier model diagram to file
-            plot_model(classifier, to_file=args.output + 'model_{}.png'.format(name), show_shapes=True)
+            plot_model(classifier, to_file=args.output + 'model_{}.eps'.format(name), show_shapes=True)
 
             # Parallelise on GPUs
             parallelised = parallelise_model(classifier, args)

@@ -10,6 +10,7 @@ import logging as log
 from pprint import pprint
 import subprocess
 import datetime
+import copy
 
 # Scientific import(s)
 import numpy as np
@@ -34,7 +35,7 @@ def add_disco (data, clf, newfeat=None):
     assert newfeat is not None, "Please specify an output feature name"
 
     # Add NN-classifier variable to DataFrame
-    features = INPUT_VARIABLES
+    features = copy.deepcopy(INPUT_VARIABLES)
     features.insert(0, 'm')
     data[newfeat] = pd.Series(clf.predict(data[features].values, batch_size=8192).flatten(), index=data.index)
     return
