@@ -36,7 +36,7 @@ def add_disco (data, clf, newfeat=None):
 
     # Add NN-classifier variable to DataFrame
     features = copy.deepcopy(INPUT_VARIABLES)
-    features.insert(0, 'm')
+    #features.insert(0, 'm')
     data[newfeat] = pd.Series(clf.predict(data[features].values, batch_size=8192).flatten(), index=data.index)
     return
 

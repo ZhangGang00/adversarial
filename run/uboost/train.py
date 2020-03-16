@@ -123,7 +123,8 @@ def main (args):
             suffix_te = "te_{:d}".format(int(cfg['uBoost']['target_efficiency'] * 100))
 
             # Save uBoost classifier
-            with gzip.open('models/uboost/uboost_{}_{}_rel21_fixed_def_cfg_1000boost.pkl.gz'.format(suffix_ur, suffix_te), 'w') as f:
+            #with gzip.open('models/uboost/uboost_{}_{}_rel21_fixed_def_cfg_1000boost.pkl.gz'.format(suffix_ur, suffix_te), 'w') as f:
+            with gzip.open('models/uboost/uboost_{}_{}_rel21_fixed.pkl.gz'.format(suffix_ur, suffix_te), 'w') as f:
                 pickle.dump(uboost, f)
                 pass
             pass

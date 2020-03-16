@@ -196,6 +196,7 @@ def main (args):
     with Profile("Study: Jet mass"):
         studies.jetmass(data, args, 'DisCo(#lambda=1)')
         studies.jetmass(data, args, 'DisCo(#lambda=5)')
+        studies.jetmass(data, args, 'DisCo(#lambda=10)')
         studies.jetmass(data, args, 'DisCo(#lambda=50)')
         pass
 

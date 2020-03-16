@@ -34,6 +34,7 @@ plt.close()
 import h5py
 
 f  = h5py.File('../../input/data_10000.h5', 'r')
+print f['dataset']['table'][:]['pt']
 plt.hist(f['dataset']['table'][:]['m'][f['dataset']['table'][:]['signal']==1],bins=np.linspace(50,150,20),alpha=0.5)
 plt.hist(f['dataset']['table'][:]['m'][f['dataset']['table'][:]['signal']==0],bins=np.linspace(50,150,20),alpha=0.5)
 plt.savefig("plots/histogram.pdf")

@@ -9,7 +9,8 @@ from sklearn.metrics import roc_curve
 from adversarial.utils import garbage_collect
 
 # Global variable definition(s)
-MASSBINS = np.linspace(50, 300, (300 - 50) // 5 + 1, endpoint=True)
+#MASSBINS = np.linspace(50, 300, (300 - 50) // 5 + 1, endpoint=True)
+MASSBINS = np.linspace(50, 250, (250 - 50) // 8 + 1, endpoint=True)
 
 
 def signal_low (feat):
