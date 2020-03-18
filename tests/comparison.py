@@ -95,8 +95,8 @@ def main (args):
     uboost_pattern = 'uboost_ur_{{:4.2f}}_te_{:.0f}_rel21_fixed'.format(uboost_eff)
 
     # -- DisCo scan
-    disco_lambda_reg  = 10.
-    disco_lambda_regs = sorted([1., 5., 10., 50.])
+    disco_lambda_reg  = 30.
+    disco_lambda_regs = sorted([1., 5., 10., 30., 50.])
     disco_vars    = list()
     disco_lambda_strs = list()
     for disco_lambda_reg_ in disco_lambda_regs:
@@ -202,6 +202,16 @@ def perform_studies (data, args, tagger_features, ann_vars, uboost_vars, disco_v
     #pt_ranges = [None, (200, 500), (500, 1000), (1000, 2000)]
     pt_ranges = [None]
 
+    '''
+    # Perform jet mass distribution study
+    with Profile("Study: Jet mass"):
+        studies.jetmass(data, args, 'DisCo(#lambda=1)')
+        studies.jetmass(data, args, 'DisCo(#lambda=5)')
+        studies.jetmass(data, args, 'DisCo(#lambda=10)')
+        studies.jetmass(data, args, 'DisCo(#lambda=30)')
+        studies.jetmass(data, args, 'DisCo(#lambda=50)')
+        pass
+
     # Perform jet mass distribution comparison study
     with Profile("Study: Jet mass comparison"):
         studies.jetmasscomparison(data, args, tagger_features)
@@ -213,6 +223,7 @@ def perform_studies (data, args, tagger_features, ann_vars, uboost_vars, disco_v
             studies.roc(data, args, tagger_features, masscut=masscut, pt_range=pt_range)
             pass
         pass
+    '''
 
     # Perform summary plot study
     with Profile("Study: Summary plot"):

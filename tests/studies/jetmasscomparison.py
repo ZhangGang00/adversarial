@@ -95,8 +95,8 @@ def plot (*argv):
         # Plots
         # -- Dummy, for proper axes
         for ipad, pad in enumerate(c.pads()[1:], 1):
-            #pad.hist([ymin], bins=[50, 300], linestyle=0, fillstyle=0, option=('Y+' if ipad % 2 else ''))
-            pad.hist([ymin], bins=[50, 250], linestyle=0, fillstyle=0, option=('Y+' if ipad % 2 else ''))
+            pad.hist([ymin], bins=[50, 300], linestyle=0, fillstyle=0, option=('Y+' if ipad % 2 else ''))
+            #pad.hist([ymin], bins=[50, 250], linestyle=0, fillstyle=0, option=('Y+' if ipad % 2 else ''))
             pass
 
         # -- Inclusive
@@ -208,7 +208,7 @@ def plot_individual (*argv):
 
         # Style @TEMP?
         #ymin, ymax = 5E-05, 5E+00
-        ymin, ymax = 5E-05, 1E+02
+        ymin, ymax = 5E-05, 1E+03
         scale = 0.6
         for coord in ['x', 'y', 'z']:
             style.SetLabelSize(style.GetLabelSize(coord) * scale, coord)
@@ -270,8 +270,8 @@ def plot_individual (*argv):
 
                 # Plots
                 # -- Dummy, for proper axes
-                #c.hist([ymin], bins=[50, 300], linestyle=0, fillstyle=0)
-                c.hist([ymin], bins=[50, 250], linestyle=0, fillstyle=0)
+                c.hist([ymin], bins=[50, 300], linestyle=0, fillstyle=0)
+                #c.hist([ymin], bins=[50, 250], linestyle=0, fillstyle=0)
 
                 # -- Inclusive
                 base = dict(bins=MASSBINS, normalise=True)

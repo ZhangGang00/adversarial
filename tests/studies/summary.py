@@ -159,7 +159,9 @@ def plot (*argv):
                 # Overwrite default name of parameter-scan classifier
                 label = 'ANN'    if label.startswith('ANN') else label
                 label = 'uBoost' if label.startswith('uBoost') else label
-                label = 'DisCo'    if label.startswith('DisCo') else label
+                if label.startswith('DisCo'):
+                   if label.startswith('DisCo(#lambda=0)'): label = 'NN('+label+')'
+                   else: label = 'DisCo'
 
                 # Style
                 colour      = rp.colours[(ifeat // 2) % len(rp.colours)]

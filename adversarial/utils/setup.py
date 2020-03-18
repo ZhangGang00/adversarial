@@ -391,7 +391,7 @@ def load_data (path, name='dataset', train=None, test=None, signal=None, backgro
         #data = data[msk_train | (msk_test & (msk_sig | msk_bkg))]
 
         # To repeat the results in arXiv paper
-        msk_pt = (data['pt']>300.0) & (data['pt']<400.0)
+        msk_pt = (data['pt']>200.0) & (data['pt']<500.0)
         data = data[(msk_train | (msk_test & (msk_sig | msk_bkg))) & msk_pt]
     except:
         log.warning("Some of the keys ['train', 'signal'] were not present in file {}".format(path))
