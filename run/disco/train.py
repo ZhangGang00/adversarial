@@ -33,49 +33,76 @@ from .common import *
 # Global variable(s)
 RNG = np.random.RandomState(21)  # For reproducibility
 
-def DisCo(y_true, y_pred, x_in, alpha = 0.):
+def DisCo(y_true_tmp, y_pred, alpha = 0., power = 1, normedweight=1):
     from keras import backend as K
     from keras.losses import binary_crossentropy
     import tensorflow as tf
 
-    #alpha determines the amount of decorrelation; 0 means no decorrelation.
-    #Note that the decorrelating feature is also used for learning.
-   
-    print 'x_in = ',x_in
-    X_in = tf.gather(x_in, [0], axis=1) #decorrelate with the second element of the input (=mass)
-    #X_in = K.variable(x_in[0]) #decorrelate with the second element of the input (=mass)
+    """
+    var_1: First variable to decorrelate (eg mass)
+    var_2: Second variable to decorrelate (eg classifier output)
+    normedweight: Per-example weight. Sum of weights should add up to N (where N is the number of examples)
+    power: Exponent used in calculating the distance correlation
+    va1_1, var_2 and normedweight should all be 1D tf tensors with the same number of entries
+    Usage: Add to your loss function. total_loss = BCE_loss + lambda * distance_corr
+    """
+    print 'y_true_tmp = ',y_true_tmp
+    y_true = tf.gather(y_true_tmp, [0], axis=1)
+    X_in = tf.gather(y_true_tmp, [1], axis=1)
     Y_in = y_pred
     print 'X_in shape: ', X_in.get_shape()
     print 'Y_in shape: ', Y_in.get_shape()
 
-    mymaskX = tf.where(Y_in<1,K.ones_like(X_in, dtype=bool),K.zeros_like(X_in, dtype=bool))
-    mymaskY = tf.where(Y_in<1,K.ones_like(Y_in, dtype=bool),K.zeros_like(Y_in, dtype=bool))
-    X = tf.boolean_mask(X_in, mymaskX)
-    Y = tf.boolean_mask(Y_in, mymaskY)
+    mymaskX = tf.where(y_true<1,K.ones_like(X_in, dtype=bool),K.zeros_like(X_in, dtype=bool))
+    mymaskY = tf.where(y_true<1,K.ones_like(Y_in, dtype=bool),K.zeros_like(Y_in, dtype=bool))
+    var_1 = tf.boolean_mask(X_in, mymaskX)
+    var_2 = tf.boolean_mask(Y_in, mymaskY)
+    print 'var_1 shape: ', var_1.get_shape()
+    print 'var_2 shape: ', var_2.get_shape()
 
-    LX = K.shape(X)[0]
-    LY = K.shape(Y)[0]
-    print 'LX : ', LX
-    print 'LY : ', LY
-    
-    X=K.reshape(X,shape=(LX,1))
-    Y=K.reshape(Y,shape=(LY,1))
-    print 'X shape: ', X.get_shape()
-    print 'Y shape: ', Y.get_shape()
+    xx = tf.reshape(var_1, [-1, 1])
+    xx = tf.tile(xx, [1, tf.size(var_1)])
+    xx = tf.reshape(xx, [tf.size(var_1), tf.size(var_1)])
  
-    ajk = K.abs(K.reshape(K.repeat(X,LX),shape=(LX,LX)) - K.transpose(X))
-    bjk = K.abs(K.reshape(K.repeat(Y,LY),shape=(LY,LY)) - K.transpose(Y))
-    print 'ajk shape: ', ajk.get_shape()
-    print 'bjk shape: ', bjk.get_shape()
-
-    Ajk = ajk - K.mean(ajk,axis=0)[None, :] - K.mean(ajk,axis=1)[:, None] + K.mean(ajk)
-    Bjk = bjk - K.mean(bjk,axis=0)[None, :] - K.mean(bjk,axis=1)[:, None] + K.mean(bjk)
-    print 'Ajk shape: ', Ajk.get_shape()
-    print 'Bjk shape: ', Bjk.get_shape()
-
-    dcor = K.sum(Ajk*Bjk) / K.sqrt(K.sum(Ajk*Ajk)*K.sum(Bjk*Bjk))
+    yy = tf.transpose(xx)
+    #amat = tf.math.abs(xx-yy)
+    amat = tf.abs(xx-yy)
     
-    return binary_crossentropy(y_true,y_pred) + alpha*dcor
+    xx = tf.reshape(var_2, [-1, 1])
+    xx = tf.tile(xx, [1, tf.size(var_2)])
+    xx = tf.reshape(xx, [tf.size(var_2), tf.size(var_2)])
+    
+    yy = tf.transpose(xx)
+    #bmat = tf.math.abs(xx-yy)
+    bmat = tf.abs(xx-yy)
+   
+    amatavg = tf.reduce_mean(amat*normedweight, axis=1)
+    bmatavg = tf.reduce_mean(bmat*normedweight, axis=1)
+ 
+    minuend_1 = tf.tile(amatavg, [tf.size(var_1)])
+    minuend_1 = tf.reshape(minuend_1, [tf.size(var_1), tf.size(var_1)])
+    minuend_2 = tf.transpose(minuend_1)
+    Amat = amat-minuend_1-minuend_2+tf.reduce_mean(amatavg*normedweight)
+
+    minuend_1 = tf.tile(bmatavg, [tf.size(var_2)])
+    minuend_1 = tf.reshape(minuend_1, [tf.size(var_2), tf.size(var_2)])
+    minuend_2 = tf.transpose(minuend_1)
+    Bmat = bmat-minuend_1-minuend_2+tf.reduce_mean(bmatavg*normedweight)
+
+    ABavg = tf.reduce_mean(Amat*Bmat*normedweight,axis=1)
+    AAavg = tf.reduce_mean(Amat*Amat*normedweight,axis=1)
+    BBavg = tf.reduce_mean(Bmat*Bmat*normedweight,axis=1)
+   
+    if power==1:
+        #dCorr = tf.reduce_mean(ABavg*normedweight)/tf.math.sqrt(tf.reduce_mean(AAavg*normedweight)*tf.reduce_mean(BBavg*normedweight))
+        dCorr = tf.reduce_mean(ABavg*normedweight)/tf.sqrt(tf.reduce_mean(AAavg*normedweight)*tf.reduce_mean(BBavg*normedweight))
+    elif power==2:
+        dCorr = (tf.reduce_mean(ABavg*normedweight))**2/(tf.reduce_mean(AAavg*normedweight)*tf.reduce_mean(BBavg*normedweight))
+    else:
+        #dCorr = (tf.reduce_mean(ABavg*normedweight)/tf.math.sqrt(tf.reduce_mean(AAavg*normedweight)*tf.reduce_mean(BBavg*normedweight)))**power
+        dCorr = (tf.reduce_mean(ABavg*normedweight)/tf.sqrt(tf.reduce_mean(AAavg*normedweight)*tf.reduce_mean(BBavg*normedweight)))**power
+
+    return binary_crossentropy(y_true,y_pred) + alpha*dCorr
 
 
 # Main function definition
@@ -128,7 +155,7 @@ def main (args):
     # --------------------------------------------------------------------------
     #data, features, features_decorrelation = load_data(args.input + 'data_10000.h5', train=True)
     data, features, features_decorrelation = load_data(args.input + 'data.h5', train=True)
-    features.insert(0,'m')
+    #features.insert(0,'m')
     num_features = len(features)
 
     # Regulsarisation parameter
@@ -150,9 +177,6 @@ def main (args):
 
     # -- Adversary
     data['weight_adv'] = pd.Series(np.multiply(data['weight_adv'].values,  1. - data['signal'].values), index=data.index)
-
-    # Create custom Disco loss 
-    #cfg['classifier']['compile']['loss'] = lambda y_true, y_pred: DisCo(y_true, y_pred, data['m'].values, alpha = lambda_reg)
 
 
     # Classifier-only fit, cross-validation
@@ -192,18 +216,18 @@ def main (args):
                     parallelised = parallelise_model(classifier, args)
 
                     # Create custom Disco loss 
-                    cfg['classifier']['compile']['loss'] = lambda y_true, y_pred: DisCo(y_true, y_pred, parallelised.input, alpha = lambda_reg)
+                    cfg['classifier']['compile']['loss'] = lambda y_true_tmp, y_pred: DisCo(y_true_tmp, y_pred, alpha = lambda_reg)
 
                     # Compile model (necessary to save properly)
                     parallelised.compile(**cfg['classifier']['compile'])
 
                     # Prepare arrays
                     X = data[features].values[train]
-                    Y = data['signal'].values[train]
+                    Y = np.stack((data['signal'].values[train], data['m'].values[train]), axis=1)
                     W = data['weight_clf'].values[train]
                     validation_data = (
                         data[features].values[validation],
-                        data['signal'].values[validation],
+                        np.stack((data['signal'].values[validation], data['m'].values[validation]), axis=1),
                         data['weight_clf'].values[validation]
                     )
 
@@ -297,7 +321,7 @@ def main (args):
             parallelised = parallelise_model(classifier, args)
 
             # Create custom Disco loss 
-            cfg['classifier']['compile']['loss'] = lambda y_true, y_pred: DisCo(y_true, y_pred, parallelised.input, alpha = lambda_reg)
+            cfg['classifier']['compile']['loss'] = lambda y_true_tmp, y_pred: DisCo(y_true_tmp, y_pred, alpha = lambda_reg)
 
             # Compile model (necessary to save properly)
             parallelised.compile(**cfg['classifier']['compile'])
@@ -312,12 +336,12 @@ def main (args):
 
             # Prepare arrays
             X = data[features].values
-            Y = data['signal'].values
+            Y = np.stack((data['signal'].values, data['m'].values), axis=1)
             W = data['weight_clf'].values
-            M = data['m'].values
             print 'Main X shape:', X.shape
             print 'Main Y shape:', Y.shape
-            #print data['m']
+            #print 'Y[:,0] = ', Y[:,0]
+            #print 'Y[:,1] = ', Y[:,1]
 
             # Fit classifier model
             ret = parallelised.fit(X, Y, sample_weight=W, callbacks=callbacks, **cfg['classifier']['fit'])

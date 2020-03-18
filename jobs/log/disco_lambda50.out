@@ -1,0 +1,461 @@
+GPU 0: Tesla V100-SXM2-32GB (UUID: GPU-adc0bb57-5f8a-ba9d-04e2-dbaa9f7c20f1)
+Allocate GPU cards : 0
+🚨  [0;38;5;196mGPU mode requested. Make sure you have Cuda/CuDNN installed[0m
+🎃  [0;38;5;208mActivating conda environment 'adversarial-gpu' on local platform[0m
+pwd:  /hpcfs/bes/mlgpu/gang/adversarial
+[38;2;74;176;245m[1mProfile[0m ⏱  Starting [1m@main[0m
+[38;2;74;176;245m[1mProfile[0m ⏱  ·· Starting [1mInitialisation[0m
+[38;2;74;176;245m[1mProfile[0m ⏱  ···· Starting [1m@initialise[0m
+[38;2;74;176;245m[1mProfile[0m ⏱  ···· Time elapsed in [1m@initialise[0m: .............................. [1m0.0s[0m
+[38;2;74;176;245m[1mProfile[0m ⏱  ···· Starting [1m@initialise_backend[0m
+[38;2;74;176;245m[1mProfile[0m ⏱  ······ Starting [1m@configure_tensorflow[0m
+[38;2;74;176;245m[1mProfile[0m ⏱  ······ Time elapsed in [1m@configure_tensorflow[0m: ................. [1m21.6s[0m
+[38;2;74;176;245m[1mProfile[0m ⏱  ···· Time elapsed in [1m@initialise_backend[0m: ..................... [1m22.8s[0m
+{'config': './configs/default_disco_lambda50.json',
+ 'devices': 1,
+ 'folds': 3,
+ 'gpu': True,
+ 'input': './input/',
+ 'jobname': '',
+ 'mode': 'gpu',
+ 'optimise_adversarial': False,
+ 'optimise_classifier': False,
+ 'output': './output/',
+ 'patches': [],
+ 'tensorboard': False,
+ 'theano': False,
+ 'train': False,
+ 'train_adversarial': False,
+ 'train_classifier': True,
+ 'verbose': True}
+{u'classifier': {u'compile': {u'loss': None,
+                              u'optimizer': <keras.optimizers.Adam object at 0x2b3123f2d950>},
+                 u'fit': {u'batch_size': 8192,
+                          u'epochs': 200,
+                          u'shuffle': True,
+                          'verbose': 2},
+                 u'lambda_reg': 50.0,
+                 u'model': {u'architecture': [{}, {}, {}],
+                            u'default': {u'activation': u'relu',
+                                         u'batchnorm': True,
+                                         u'units': 64}}}}
+  TensorFlow version: 1.4.1
+[38;2;74;176;245m[1mProfile[0m ⏱  ·· Time elapsed in [1mInitialisation[0m: ............................ [1m23.1s[0m
+[38;2;74;176;245m[1mProfile[0m ⏱  ·· Starting [1m@load_data[0m
+[38;2;74;176;245m[1mProfile[0m ⏱  ·· Time elapsed in [1m@load_data[0m: ................................ [1m28.9s[0m
+lambda_reg =  50.0
+lambda_str =  50
+[38;2;74;176;245m[1mProfile[0m ⏱  ·· Starting [1m@get_decorrelation_variables[0m
+[38;2;74;176;245m[1mProfile[0m ⏱  ·· Time elapsed in [1m@get_decorrelation_variables[0m: ............... [1m0.0s[0m
+[38;2;74;176;245m[1mProfile[0m ⏱  ·· Starting [1mClassifier-only fit, cross-validation[0m
+[38;2;74;176;245m[1mProfile[0m ⏱  ·· Time elapsed in [1mClassifier-only fit, cross-validation[0m: ...... [1m0.0s[0m
+[38;2;74;176;245m[1mProfile[0m ⏱  ·· Starting [1mClassifier-only fit, full[0m
+y_true_tmp =  Tensor("classifier/output_target:0", shape=(?, ?), dtype=float32)
+X_in shape:  (?, 1)
+Y_in shape:  (?, 1)
+var_1 shape:  (?,)
+var_2 shape:  (?,)
+Main X shape: (335405, 10)
+Main Y shape: (335405, 2)
+Epoch 1/200
+ - 177s - loss: 1.0897
+Epoch 2/200
+ - 1s - loss: 0.8978
+Epoch 3/200
+ - 1s - loss: 0.8301
+Epoch 4/200
+ - 1s - loss: 0.7901
+Epoch 5/200
+ - 1s - loss: 0.7551
+Epoch 6/200
+ - 1s - loss: 0.7200
+Epoch 7/200
+ - 1s - loss: 0.7177
+Epoch 8/200
+ - 1s - loss: 0.6871
+Epoch 9/200
+ - 1s - loss: 0.6767
+Epoch 10/200
+ - 1s - loss: 0.6668
+Epoch 11/200
+ - 1s - loss: 0.6594
+Epoch 12/200
+ - 1s - loss: 0.6522
+Epoch 13/200
+ - 1s - loss: 0.6459
+Epoch 14/200
+ - 1s - loss: 0.6351
+Epoch 15/200
+ - 1s - loss: 0.6350
+Epoch 16/200
+ - 1s - loss: 0.6363
+Epoch 17/200
+ - 1s - loss: 0.6194
+Epoch 18/200
+ - 1s - loss: 0.6190
+Epoch 19/200
+ - 1s - loss: 0.6238
+Epoch 20/200
+ - 1s - loss: 0.6276
+Epoch 21/200
+ - 1s - loss: 0.6201
+Epoch 22/200
+ - 1s - loss: 0.6075
+Epoch 23/200
+ - 1s - loss: 0.6115
+Epoch 24/200
+ - 1s - loss: 0.6025
+Epoch 25/200
+ - 1s - loss: 0.6021
+Epoch 26/200
+ - 1s - loss: 0.6056
+Epoch 27/200
+ - 1s - loss: 0.6025
+Epoch 28/200
+ - 1s - loss: 0.5965
+Epoch 29/200
+ - 1s - loss: 0.5955
+Epoch 30/200
+ - 1s - loss: 0.5945
+Epoch 31/200
+ - 1s - loss: 0.5952
+Epoch 32/200
+ - 1s - loss: 0.5931
+Epoch 33/200
+ - 1s - loss: 0.5948
+Epoch 34/200
+ - 1s - loss: 0.5917
+Epoch 35/200
+ - 1s - loss: 0.5940
+Epoch 36/200
+ - 1s - loss: 0.5904
+Epoch 37/200
+ - 1s - loss: 0.5870
+Epoch 38/200
+ - 1s - loss: 0.5899
+Epoch 39/200
+ - 1s - loss: 0.5933
+Epoch 40/200
+ - 1s - loss: 0.5841
+Epoch 41/200
+ - 1s - loss: 0.5837
+Epoch 42/200
+ - 1s - loss: 0.5894
+Epoch 43/200
+ - 1s - loss: 0.5888
+Epoch 44/200
+ - 1s - loss: 0.5821
+Epoch 45/200
+ - 1s - loss: 0.5861
+Epoch 46/200
+ - 1s - loss: 0.5811
+Epoch 47/200
+ - 1s - loss: 0.5816
+Epoch 48/200
+ - 1s - loss: 0.5835
+Epoch 49/200
+ - 1s - loss: 0.5813
+Epoch 50/200
+ - 1s - loss: 0.5835
+Epoch 51/200
+ - 1s - loss: 0.5784
+Epoch 52/200
+ - 1s - loss: 0.5790
+Epoch 53/200
+ - 1s - loss: 0.5765
+Epoch 54/200
+ - 1s - loss: 0.5709
+Epoch 55/200
+ - 1s - loss: 0.5782
+Epoch 56/200
+ - 1s - loss: 0.5757
+Epoch 57/200
+ - 1s - loss: 0.5807
+Epoch 58/200
+ - 1s - loss: 0.5825
+Epoch 59/200
+ - 1s - loss: 0.5825
+Epoch 60/200
+ - 1s - loss: 0.5757
+Epoch 61/200
+ - 1s - loss: 0.5780
+Epoch 62/200
+ - 1s - loss: 0.5713
+Epoch 63/200
+ - 1s - loss: 0.5727
+Epoch 64/200
+ - 1s - loss: 0.5747
+Epoch 65/200
+ - 1s - loss: 0.5737
+Epoch 66/200
+ - 1s - loss: 0.5755
+Epoch 67/200
+ - 1s - loss: 0.5698
+Epoch 68/200
+ - 1s - loss: 0.5729
+Epoch 69/200
+ - 1s - loss: 0.5741
+Epoch 70/200
+ - 1s - loss: 0.5715
+Epoch 71/200
+ - 1s - loss: 0.5684
+Epoch 72/200
+ - 1s - loss: 0.5741
+Epoch 73/200
+ - 1s - loss: 0.5792
+Epoch 74/200
+ - 1s - loss: 0.5681
+Epoch 75/200
+ - 1s - loss: 0.5703
+Epoch 76/200
+ - 1s - loss: 0.5742
+Epoch 77/200
+ - 1s - loss: 0.5672
+Epoch 78/200
+ - 1s - loss: 0.5715
+Epoch 79/200
+ - 1s - loss: 0.5719
+Epoch 80/200
+ - 1s - loss: 0.5676
+Epoch 81/200
+ - 1s - loss: 0.5668
+Epoch 82/200
+ - 1s - loss: 0.5679
+Epoch 83/200
+ - 1s - loss: 0.5678
+Epoch 84/200
+ - 1s - loss: 0.5692
+Epoch 85/200
+ - 1s - loss: 0.5738
+Epoch 86/200
+ - 1s - loss: 0.5670
+Epoch 87/200
+ - 1s - loss: 0.5667
+Epoch 88/200
+ - 1s - loss: 0.5702
+Epoch 89/200
+ - 1s - loss: 0.5668
+Epoch 90/200
+ - 1s - loss: 0.5694
+Epoch 91/200
+ - 1s - loss: 0.5660
+Epoch 92/200
+ - 1s - loss: 0.5699
+Epoch 93/200
+ - 1s - loss: 0.5679
+Epoch 94/200
+ - 1s - loss: 0.5689
+Epoch 95/200
+ - 1s - loss: 0.5707
+Epoch 96/200
+ - 1s - loss: 0.5669
+Epoch 97/200
+ - 1s - loss: 0.5708
+Epoch 98/200
+ - 1s - loss: 0.5625
+Epoch 99/200
+ - 1s - loss: 0.5692
+Epoch 100/200
+ - 1s - loss: 0.5685
+Epoch 101/200
+ - 1s - loss: 0.5696
+Epoch 102/200
+ - 1s - loss: 0.5697
+Epoch 103/200
+ - 1s - loss: 0.5638
+Epoch 104/200
+ - 1s - loss: 0.5638
+Epoch 105/200
+ - 1s - loss: 0.5676
+Epoch 106/200
+ - 1s - loss: 0.5609
+Epoch 107/200
+ - 1s - loss: 0.5697
+Epoch 108/200
+ - 1s - loss: 0.5665
+Epoch 109/200
+ - 1s - loss: 0.5644
+Epoch 110/200
+ - 1s - loss: 0.5680
+Epoch 111/200
+ - 1s - loss: 0.5631
+Epoch 112/200
+ - 1s - loss: 0.5636
+Epoch 113/200
+ - 1s - loss: 0.5636
+Epoch 114/200
+ - 1s - loss: 0.5641
+Epoch 115/200
+ - 1s - loss: 0.5657
+Epoch 116/200
+ - 1s - loss: 0.5589
+Epoch 117/200
+ - 1s - loss: 0.5689
+Epoch 118/200
+ - 1s - loss: 0.5643
+Epoch 119/200
+ - 1s - loss: 0.5645
+Epoch 120/200
+ - 1s - loss: 0.5589
+Epoch 121/200
+ - 1s - loss: 0.5635
+Epoch 122/200
+ - 1s - loss: 0.5665
+Epoch 123/200
+ - 1s - loss: 0.5602
+Epoch 124/200
+ - 1s - loss: 0.5632
+Epoch 125/200
+ - 1s - loss: 0.5624
+Epoch 126/200
+ - 1s - loss: 0.5588
+Epoch 127/200
+ - 1s - loss: 0.5653
+Epoch 128/200
+ - 1s - loss: 0.5615
+Epoch 129/200
+ - 1s - loss: 0.5670
+Epoch 130/200
+ - 1s - loss: 0.5625
+Epoch 131/200
+ - 1s - loss: 0.5632
+Epoch 132/200
+ - 1s - loss: 0.5602
+Epoch 133/200
+ - 1s - loss: 0.5640
+Epoch 134/200
+ - 1s - loss: 0.5573
+Epoch 135/200
+ - 1s - loss: 0.5631
+Epoch 136/200
+ - 1s - loss: 0.5674
+Epoch 137/200
+ - 1s - loss: 0.5602
+Epoch 138/200
+ - 1s - loss: 0.5639
+Epoch 139/200
+ - 1s - loss: 0.5584
+Epoch 140/200
+ - 1s - loss: 0.5576
+Epoch 141/200
+ - 1s - loss: 0.5640
+Epoch 142/200
+ - 1s - loss: 0.5629
+Epoch 143/200
+ - 1s - loss: 0.5649
+Epoch 144/200
+ - 1s - loss: 0.5595
+Epoch 145/200
+ - 1s - loss: 0.5574
+Epoch 146/200
+ - 1s - loss: 0.5577
+Epoch 147/200
+ - 1s - loss: 0.5602
+Epoch 148/200
+ - 1s - loss: 0.5646
+Epoch 149/200
+ - 1s - loss: 0.5621
+Epoch 150/200
+ - 1s - loss: 0.5618
+Epoch 151/200
+ - 1s - loss: 0.5617
+Epoch 152/200
+ - 1s - loss: 0.5615
+Epoch 153/200
+ - 1s - loss: 0.5628
+Epoch 154/200
+ - 1s - loss: 0.5597
+Epoch 155/200
+ - 1s - loss: 0.5577
+Epoch 156/200
+ - 1s - loss: 0.5619
+Epoch 157/200
+ - 1s - loss: 0.5573
+Epoch 158/200
+ - 1s - loss: 0.5560
+Epoch 159/200
+ - 1s - loss: 0.5619
+Epoch 160/200
+ - 1s - loss: 0.5609
+Epoch 161/200
+ - 1s - loss: 0.5634
+Epoch 162/200
+ - 1s - loss: 0.5604
+Epoch 163/200
+ - 1s - loss: 0.5607
+Epoch 164/200
+ - 1s - loss: 0.5576
+Epoch 165/200
+ - 1s - loss: 0.5606
+Epoch 166/200
+ - 1s - loss: 0.5640
+Epoch 167/200
+ - 1s - loss: 0.5588
+Epoch 168/200
+ - 1s - loss: 0.5596
+Epoch 169/200
+ - 1s - loss: 0.5609
+Epoch 170/200
+ - 1s - loss: 0.5584
+Epoch 171/200
+ - 1s - loss: 0.5604
+Epoch 172/200
+ - 1s - loss: 0.5602
+Epoch 173/200
+ - 1s - loss: 0.5596
+Epoch 174/200
+ - 1s - loss: 0.5595
+Epoch 175/200
+ - 1s - loss: 0.5601
+Epoch 176/200
+ - 1s - loss: 0.5560
+Epoch 177/200
+ - 1s - loss: 0.5592
+Epoch 178/200
+ - 1s - loss: 0.5608
+Epoch 179/200
+ - 1s - loss: 0.5561
+Epoch 180/200
+ - 1s - loss: 0.5619
+Epoch 181/200
+ - 1s - loss: 0.5601
+Epoch 182/200
+ - 1s - loss: 0.5571
+Epoch 183/200
+ - 1s - loss: 0.5589
+Epoch 184/200
+ - 1s - loss: 0.5577
+Epoch 185/200
+ - 1s - loss: 0.5579
+Epoch 186/200
+ - 1s - loss: 0.5585
+Epoch 187/200
+ - 1s - loss: 0.5539
+Epoch 188/200
+ - 1s - loss: 0.5586
+Epoch 189/200
+ - 1s - loss: 0.5579
+Epoch 190/200
+ - 1s - loss: 0.5581
+Epoch 191/200
+ - 1s - loss: 0.5569
+Epoch 192/200
+ - 1s - loss: 0.5567
+Epoch 193/200
+ - 1s - loss: 0.5629
+Epoch 194/200
+ - 1s - loss: 0.5600
+Epoch 195/200
+ - 1s - loss: 0.5573
+Epoch 196/200
+ - 1s - loss: 0.5581
+Epoch 197/200
+ - 1s - loss: 0.5591
+Epoch 198/200
+ - 1s - loss: 0.5589
+Epoch 199/200
+ - 1s - loss: 0.5595
+Epoch 200/200
+ - 1s - loss: 0.5536
+[38;2;74;176;245m[1mProfile[0m ⏱  ·· Time elapsed in [1mClassifier-only fit, full[0m: ................ [1m343.1s[0m
+[38;2;74;176;245m[1mProfile[0m ⏱  Time elapsed in [1m@main[0m: ....................................... [1m395.2s[0m

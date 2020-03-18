@@ -51,7 +51,7 @@ def add_bdt (data, var=None, path=None):
     clf = loadclf(path)
 
     # Use parallelisation to speed-up prediction
-    result = parallel_predict(clf, data, n_jobs=16, method='predict_proba')
+    result = parallel_predict(clf, data, n_jobs=6, method='predict_proba')
 
     # Add new classifier to data array
     data[var] = pd.Series(result[:,1].flatten(), index=data.index)

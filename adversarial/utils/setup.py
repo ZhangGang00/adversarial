@@ -388,7 +388,11 @@ def load_data (path, name='dataset', train=None, test=None, signal=None, backgro
         idx_sig = np.random.choice(idx_sig, int(msk_sig.sum() * 0.1), replace=False)
         msk_sig = np.zeros_like(msk_bkg).astype(bool)
         msk_sig[idx_sig] = True
-        data = data[msk_train | (msk_test & (msk_sig | msk_bkg))]
+        #data = data[msk_train | (msk_test & (msk_sig | msk_bkg))]
+
+        # To repeat the results in arXiv paper
+        msk_pt = (data['pt']>200.0) & (data['pt']<500.0)
+        data = data[(msk_train | (msk_test & (msk_sig | msk_bkg))) & msk_pt]
     except:
         log.warning("Some of the keys ['train', 'signal'] were not present in file {}".format(path))
         pass

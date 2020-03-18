@@ -1,0 +1,20 @@
+INFO: Found 36 Intel(R) Xeon(R) Gold 6140 CPU @ 2.30GHz devices with 18 cores each.
+Using TensorFlow backend.
+INFO: Running 'run/adversarial/common.pyc'
+INFO: Command-line arguments:
+INFO: Configuration file contents:
+INFO: Python version: 2.7.14
+INFO: Numpy  version: 1.16.5
+INFO: Keras  version: 2.1.5
+INFO: Using keras backend: 'tensorflow'
+INFO: Found   177420 training and   178234 test samples for signal
+INFO: Found   157985 training and  1582048 test samples for background
+INFO: load_data: Selecting only training data.
+INFO: Implementing gradient reversal layer in TensorFlow
+INFO: Loading cross-validation classifiers from file
+ERROR: Unable to open file (Unable to open file: name = 'models/adversarial/classifier/crossval/crossval_classifier__1of3.h5', errno = 2, error message = 'no such file or directory', flags = 0, o_flags = 0)
+ERROR: Not all files were loaded. Exiting.
+INFO: Training full classifier
+INFO: Training full, combined model
+INFO: Pre-training
+INFO: Actual training

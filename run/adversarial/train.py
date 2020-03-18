@@ -246,7 +246,7 @@ def main (args):
             classifier = classifier_model(num_features, **cfg['classifier']['model'])
 
             # Save classifier model diagram to file
-            plot_model(classifier, to_file=args.output + 'model_{}.png'.format(name), show_shapes=True)
+            plot_model(classifier, to_file=args.output + 'model_{}.eps'.format(name), show_shapes=True)
 
             # Parallelise on GPUs
             parallelised = parallelise_model(classifier, args)
@@ -434,7 +434,7 @@ def main (args):
                                     **cfg['adversary']['model'])
         
         # Save adversarial model diagram
-        plot_model(adversary, to_file=args.output + 'model_adversary.png', show_shapes=True)
+        plot_model(adversary, to_file=args.output + 'model_adversary.eps', show_shapes=True)
 
         # Create callback array
         callbacks = list()
@@ -448,7 +448,7 @@ def main (args):
         combined = combined_model(classifier, adversary, **cfg['combined']['model'])
 
         # Save combined model diagram
-        plot_model(combined, to_file=args.output + 'model_{}.png'.format(name), show_shapes=True)
+        plot_model(combined, to_file=args.output + 'model_{}.eps'.format(name), show_shapes=True)
 
         if args.train or args.train_adversarial:
             log.info("Training full, combined model")

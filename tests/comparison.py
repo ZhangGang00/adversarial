@@ -96,7 +96,7 @@ def main (args):
 
     # -- DisCo scan
     disco_lambda_reg  = 10.
-    disco_lambda_regs = sorted([1., 5., 10., 50.])
+    disco_lambda_regs = sorted([1., 5., 10., 30., 50.])
     disco_vars    = list()
     disco_lambda_strs = list()
     for disco_lambda_reg_ in disco_lambda_regs:
@@ -200,8 +200,8 @@ def perform_studies (data, args, tagger_features, ann_vars, uboost_vars, disco_v
     """
     masscuts  = [False, True]
     pt_ranges = [None, (200, 500), (500, 1000), (1000, 2000)]
+    #pt_ranges = [None]
 
-    '''
     # Perform jet mass distribution comparison study
     with Profile("Study: Jet mass comparison"):
         studies.jetmasscomparison(data, args, tagger_features)
@@ -213,7 +213,6 @@ def perform_studies (data, args, tagger_features, ann_vars, uboost_vars, disco_v
             studies.roc(data, args, tagger_features, masscut=masscut, pt_range=pt_range)
             pass
         pass
-    '''
 
     # Perform summary plot study
     with Profile("Study: Summary plot"):
@@ -231,7 +230,6 @@ def perform_studies (data, args, tagger_features, ann_vars, uboost_vars, disco_v
             pass
         pass
 
-    '''
     # Perform combined robustness study
     with Profile("Study: Robustness"):
         for masscut in masscuts:
@@ -261,7 +259,6 @@ def perform_studies (data, args, tagger_features, ann_vars, uboost_vars, disco_v
             studies.efficiency(data, args, feat)
             pass
         pass
-    '''
 
     return
 
