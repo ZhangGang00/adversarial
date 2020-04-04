@@ -199,10 +199,9 @@ def perform_studies (data, args, tagger_features, ann_vars, uboost_vars, disco_v
     Method delegating performance studies.
     """
     masscuts  = [False, True]
-    #pt_ranges = [None, (200, 500), (500, 1000), (1000, 2000)]
+    #pt_ranges = [None, (300, 400), (200, 500), (500, 1000), (1000, 2000)]
     pt_ranges = [None]
 
-    '''
     # Perform jet mass distribution study
     with Profile("Study: Jet mass"):
         studies.jetmass(data, args, 'DisCo(#lambda=1)')
@@ -223,7 +222,6 @@ def perform_studies (data, args, tagger_features, ann_vars, uboost_vars, disco_v
             studies.roc(data, args, tagger_features, masscut=masscut, pt_range=pt_range)
             pass
         pass
-    '''
 
     # Perform summary plot study
     with Profile("Study: Summary plot"):

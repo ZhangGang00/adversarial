@@ -58,12 +58,13 @@ def plot_classifier_training_loss (num_folds, basedir='models/disco/classifier/c
         pass
 
     # Get paths to classifier training losses
-    paths = sorted(glob.glob(basedir + '/history__crossval_classifier_lambda10__*of{}.json'.format(num_folds)))
+    paths = sorted(glob.glob(basedir + '/history__crossval_classifier_lambda30__*of{}.json'.format(num_folds)))
 
     if len(paths) == 0:
         print "No models found for classifier CV study."
         return
 
+    index = [0]
     # Read losses from files
     losses = {'train': list(), 'val': list()}
     for path in paths:
@@ -72,12 +73,17 @@ def plot_classifier_training_loss (num_folds, basedir='models/disco/classifier/c
             pass
 
         loss = np.array(d['val_loss'])
+        #loss1 = np.delete(loss, index, axis=0)
         #print "Outliers:", loss[np.abs(loss - 0.72) < 0.02]
         #loss[np.abs(loss - 0.72) < 0.02] = np.nan  # @FIXME: This probably isn't completely kosher
         losses['val'].append(loss)
         loss = np.array(d['loss'])
+        #loss1 = np.delete(loss, index, axis=0)
         losses['train'].append(loss)
         pass
+
+    print 'losses[val]:',losses['val']
+    print 'losses[train]:',losses['train']
 
     # Define variable(s)
     bins     = np.arange(len(loss))
@@ -94,6 +100,8 @@ def plot_classifier_training_loss (num_folds, basedir='models/disco/classifier/c
         # Histograms
         loss_mean = np.nanmean(losses[key], axis=0)
         loss_std  = np.nanstd (losses[key], axis=0)
+        print 'loss_mean:',loss_mean
+        print 'loss_std:',loss_std
         hist = ROOT.TH1F(key + '_loss', "", len(histbins) - 1, histbins)
         for idx in range(len(loss_mean)):
             hist.SetBinContent(idx + 1, loss_mean[idx])
@@ -115,7 +123,7 @@ def plot_classifier_training_loss (num_folds, basedir='models/disco/classifier/c
     c.xlabel("Training epoch")
     c.ylabel("Cross-validation classifier loss, L_{clf}")
     c.xlim(0, max(bins))
-    c.ylim(0.3, 1)
+    c.ylim(0.3, 2)
     c.legend(categories=categories, width=0.25)  # ..., xmin=0.475
     c.text(TEXT + ["#it{W} jet tagging", "Neural network (NN) + DisCo classifier"],
            qualifier=QUALIFIER)

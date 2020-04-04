@@ -239,54 +239,19 @@ def main (args):
                         callbacks += [TensorBoard(log_dir=tensorboard_dir + 'classifier/fold{}/'.format(fold))]
                         pass
 
-                    # Compute initial losses
-                    X_val, Y_val, W_val = validation_data
-                    eval_opts = dict(batch_size=cfg['classifier']['fit']['batch_size'], verbose=0)
-                    initial_losses = [[parallelised.evaluate(X,     Y,     sample_weight=W,     **eval_opts)],
-                                      [parallelised.evaluate(X_val, Y_val, sample_weight=W_val, **eval_opts)]]
-
                     # Fit classifier model
                     ret = parallelised.fit(X, Y, sample_weight=W, validation_data=validation_data, callbacks=callbacks, **cfg['classifier']['fit'])
-
-                    # Prepend initial losses
-                    for metric, loss_train, loss_val in zip(parallelised.metrics_names, *initial_losses):
-                        ret.history[metric]         .insert(0, loss_train)
-                        ret.history['val_' + metric].insert(0, loss_val)
-                        pass
 
                     # Add to list of cost histories
                     histories.append(ret.history)
 
-                    # Add to list of classifiers
-                    classifiers.append(classifier)
-
                     # Save classifier model and training history to file, both
-                    # in unique output directory and in the directory for pre-
-                    # trained classifiers
+                    # in unique output directory and in the directory
                     save([args.output, basedir], name, classifier, ret.history)
                     pass
                 pass # end: k-fold cross-validation
             pass
 
-        '''
-        else:
-            # Load pre-trained classifiers
-            log.info("Loading cross-validation classifiers from file")
-            try:
-                for fold in range(args.folds):
-                    name = '{}__{}of{}'.format(basename, fold + 1, args.folds)
-                    classifier, history = load(basedir, name)
-                    classifiers.append(classifier)
-                    histories.append(history)
-                    pass
-            except IOError as err:
-                log.error("{}".format(err))
-                log.error("Not all files were loaded. Exiting.")
-                #return 1  # @TEMP
-                pass
-
-            pass # end: train/load
-        '''
         pass
 
 

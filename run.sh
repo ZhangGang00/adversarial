@@ -7,3 +7,5 @@ python -m run.disco.train --train-classifier --config='./configs/default_disco.j
 #python -m tests.comparison --save
 
 #python -m tests.plot_mass --save
+
+#python -m tests.loss_disco

@@ -44,10 +44,10 @@ def jetmasscomparison (data, args, features, eff_sig=50):
         pass
 
     # Perform plotting
-    c = rp.canvas(batch=True, num_pads=(2,3))
     #c = plot(data, args, features, msks_pass, eff_sig)
 
     # Perform plotting on individual figures
+    c = rp.canvas(batch=True, num_pads=(2,3))
     plot_individual(data, args, features, msks_pass, eff_sig)
 
     # Output
@@ -331,7 +331,9 @@ def plot_individual (*argv):
 
             # Save
             c.save(path = 'figures/jetmasscomparison__eff_sig_{:d}__{}.pdf'.format(int(eff_sig), 'legend' if first else '{}_{}'.format(*feats)))
+            c.save(path = 'figures/jetmasscomparison__eff_sig_{:d}__{}.eps'.format(int(eff_sig), 'legend' if first else '{}_{}'.format(*feats)))
+            c.save(path = 'figures/jetmasscomparison__eff_sig_{:d}__{}.C'.format(int(eff_sig), 'legend' if first else '{}_{}'.format(*feats)))
             pass
         pass  # end temprorary style
 
-    return
+    return 
