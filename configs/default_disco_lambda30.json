@@ -10,7 +10,7 @@
       	},
       	"fit": {
       	    "epochs":     200,
-      	    "batch_size": 8192,
+      	    "batch_size": 2048,
       	    "shuffle":    true
       	},
       	"compile" : {

@@ -1,4 +1,4 @@
-INFO: Found 36 Intel(R) Xeon(R) Gold 6140 CPU @ 2.30GHz devices with 18 cores each.
+INFO: Found 36 Intel(R) Xeon(R) Gold 6240 CPU @ 2.60GHz devices with 18 cores each.
 Using TensorFlow backend.
 INFO: Implementing gradient reversal layer in TensorFlow
 INFO: Running 'run/disco/common.pyc'
@@ -8,9 +8,11 @@ INFO: Python version: 2.7.14
 INFO: Numpy  version: 1.16.5
 INFO: Keras  version: 2.1.5
 INFO: Using keras backend: 'tensorflow'
-INFO: Found   177420 training and   178234 test samples for signal
-INFO: Found   157985 training and  1582048 test samples for background
+INFO: Found   151028 training and   150575 test samples for signal
+INFO: Found   113286 training and  1136518 test samples for background
 INFO: load_data: Selecting only training data.
 INFO: Training full classifier
 /afs/ihep.ac.cn/users/g/gang/hpcfs/software/miniconda2/envs/adversarial-gpu/lib/python2.7/site-packages/tensorflow/python/ops/gradients_impl.py:96: UserWarning: Converting sparse IndexedSlices to a dense Tensor of unknown shape. This may consume a large amount of memory.
   "Converting sparse IndexedSlices to a dense Tensor of unknown shape. "
+/afs/ihep.ac.cn/users/g/gang/hpcfs/software/miniconda2/envs/adversarial-gpu/lib/python2.7/site-packages/keras/callbacks.py:120: UserWarning: Method on_batch_end() is slow compared to the batch update (0.181996). Check your callbacks.
+  % delta_t_median)

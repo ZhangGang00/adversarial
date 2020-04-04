@@ -150,12 +150,32 @@ def main (args):
         print_env(args, cfg)
         pass
 
-
     # Loading data
     # --------------------------------------------------------------------------
     #data, features, features_decorrelation = load_data(args.input + 'data_10000.h5', train=True)
     data, features, features_decorrelation = load_data(args.input + 'data.h5', train=True)
-    #features.insert(0,'m')
+    '''
+    kNN_var = 'D2-k#minusNN'
+    with Profile("Add variables"):
+        # Tau21DDT
+        from run.ddt.common import add_ddt
+        add_ddt(data, path='models/ddt/ddt.pkl.gz')
+
+        # D2-CSS
+        from run.css.common import add_css
+        add_css("D2", data)
+
+        # D2-kNN
+        #from run.knn.common import add_knn, VAR as kNN_basevar, EFF as kNN_eff
+        #print "k-NN base variable: {} (cp. {})".format(kNN_basevar, kNN_var)
+        #add_knn(data, newfeat=kNN_var, path='models/knn/knn_{}_{}.pkl.gz'.format(kNN_basevar, kNN_eff))
+        pass
+    features.remove('D2')
+    features.remove('Tau21')
+    features.insert(0,'D2CSS')
+    features.insert(0,'Tau21DDT')
+    #features.insert(0,'D2-k#minusNN')
+    '''
     num_features = len(features)
 
     # Regulsarisation parameter
@@ -239,26 +259,11 @@ def main (args):
                         callbacks += [TensorBoard(log_dir=tensorboard_dir + 'classifier/fold{}/'.format(fold))]
                         pass
 
-                    # Compute initial losses
-                    X_val, Y_val, W_val = validation_data
-                    eval_opts = dict(batch_size=cfg['classifier']['fit']['batch_size'], verbose=0)
-                    initial_losses = [[parallelised.evaluate(X,     Y,     sample_weight=W,     **eval_opts)],
-                                      [parallelised.evaluate(X_val, Y_val, sample_weight=W_val, **eval_opts)]]
-
                     # Fit classifier model
                     ret = parallelised.fit(X, Y, sample_weight=W, validation_data=validation_data, callbacks=callbacks, **cfg['classifier']['fit'])
 
-                    # Prepend initial losses
-                    for metric, loss_train, loss_val in zip(parallelised.metrics_names, *initial_losses):
-                        ret.history[metric]         .insert(0, loss_train)
-                        ret.history['val_' + metric].insert(0, loss_val)
-                        pass
-
                     # Add to list of cost histories
                     histories.append(ret.history)
-
-                    # Add to list of classifiers
-                    classifiers.append(classifier)
 
                     # Save classifier model and training history to file, both
                     # in unique output directory and in the directory for pre-
@@ -268,25 +273,6 @@ def main (args):
                 pass # end: k-fold cross-validation
             pass
 
-        '''
-        else:
-            # Load pre-trained classifiers
-            log.info("Loading cross-validation classifiers from file")
-            try:
-                for fold in range(args.folds):
-                    name = '{}__{}of{}'.format(basename, fold + 1, args.folds)
-                    classifier, history = load(basedir, name)
-                    classifiers.append(classifier)
-                    histories.append(history)
-                    pass
-            except IOError as err:
-                log.error("{}".format(err))
-                log.error("Not all files were loaded. Exiting.")
-                #return 1  # @TEMP
-                pass
-
-            pass # end: train/load
-        '''
         pass
 
 

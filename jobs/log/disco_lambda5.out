@@ -1,4 +1,4 @@
-GPU 0: Tesla V100-SXM2-32GB (UUID: GPU-d7e1810a-ffb6-a870-0659-61954ae9ba53)
+GPU 0: Tesla V100-SXM2-32GB (UUID: GPU-f877ccce-b344-c7ab-8cdd-72849191a83f)
 Allocate GPU cards : 0
 🚨  [0;38;5;196mGPU mode requested. Make sure you have Cuda/CuDNN installed[0m
 🎃  [0;38;5;208mActivating conda environment 'adversarial-gpu' on local platform[0m
@@ -9,8 +9,8 @@ pwd:  /hpcfs/bes/mlgpu/gang/adversarial
 [38;2;74;176;245m[1mProfile[0m ⏱  ···· Time elapsed in [1m@initialise[0m: .............................. [1m0.0s[0m
 [38;2;74;176;245m[1mProfile[0m ⏱  ···· Starting [1m@initialise_backend[0m
 [38;2;74;176;245m[1mProfile[0m ⏱  ······ Starting [1m@configure_tensorflow[0m
-[38;2;74;176;245m[1mProfile[0m ⏱  ······ Time elapsed in [1m@configure_tensorflow[0m: ................. [1m22.8s[0m
-[38;2;74;176;245m[1mProfile[0m ⏱  ···· Time elapsed in [1m@initialise_backend[0m: ..................... [1m23.3s[0m
+[38;2;74;176;245m[1mProfile[0m ⏱  ······ Time elapsed in [1m@configure_tensorflow[0m: .................. [1m8.6s[0m
+[38;2;74;176;245m[1mProfile[0m ⏱  ···· Time elapsed in [1m@initialise_backend[0m: ...................... [1m9.0s[0m
 {'config': './configs/default_disco_lambda5.json',
  'devices': 1,
  'folds': 3,
@@ -29,8 +29,8 @@ pwd:  /hpcfs/bes/mlgpu/gang/adversarial
  'train_classifier': True,
  'verbose': True}
 {u'classifier': {u'compile': {u'loss': None,
-                              u'optimizer': <keras.optimizers.Adam object at 0x2aaee346e950>},
-                 u'fit': {u'batch_size': 8192,
+                              u'optimizer': <keras.optimizers.Adam object at 0x2aba7ff79d90>},
+                 u'fit': {u'batch_size': 2048,
                           u'epochs': 200,
                           u'shuffle': True,
                           'verbose': 2},
@@ -40,9 +40,9 @@ pwd:  /hpcfs/bes/mlgpu/gang/adversarial
                                          u'batchnorm': True,
                                          u'units': 64}}}}
   TensorFlow version: 1.4.1
-[38;2;74;176;245m[1mProfile[0m ⏱  ·· Time elapsed in [1mInitialisation[0m: ............................ [1m23.4s[0m
+[38;2;74;176;245m[1mProfile[0m ⏱  ·· Time elapsed in [1mInitialisation[0m: ............................. [1m9.7s[0m
 [38;2;74;176;245m[1mProfile[0m ⏱  ·· Starting [1m@load_data[0m
-[38;2;74;176;245m[1mProfile[0m ⏱  ·· Time elapsed in [1m@load_data[0m: ................................ [1m20.1s[0m
+[38;2;74;176;245m[1mProfile[0m ⏱  ·· Time elapsed in [1m@load_data[0m: ............................... [1m321.9s[0m
 lambda_reg =  5.0
 lambda_str =  5
 [38;2;74;176;245m[1mProfile[0m ⏱  ·· Starting [1m@get_decorrelation_variables[0m
@@ -55,407 +55,407 @@ X_in shape:  (?, 1)
 Y_in shape:  (?, 1)
 var_1 shape:  (?,)
 var_2 shape:  (?,)
-Main X shape: (335405, 10)
-Main Y shape: (335405, 2)
+Main X shape: (264314, 10)
+Main Y shape: (264314, 2)
 Epoch 1/200
- - 182s - loss: 0.8115
+ - 263s - loss: 0.6262
 Epoch 2/200
- - 1s - loss: 0.6576
+ - 1s - loss: 0.4789
 Epoch 3/200
- - 1s - loss: 0.5954
+ - 1s - loss: 0.4475
 Epoch 4/200
- - 1s - loss: 0.5676
+ - 1s - loss: 0.4374
 Epoch 5/200
- - 1s - loss: 0.5524
+ - 1s - loss: 0.4294
 Epoch 6/200
- - 1s - loss: 0.5416
+ - 1s - loss: 0.4231
 Epoch 7/200
- - 1s - loss: 0.5357
+ - 1s - loss: 0.4191
 Epoch 8/200
- - 1s - loss: 0.5304
+ - 1s - loss: 0.4162
 Epoch 9/200
- - 1s - loss: 0.5264
+ - 1s - loss: 0.4143
 Epoch 10/200
- - 1s - loss: 0.5232
+ - 1s - loss: 0.4117
 Epoch 11/200
- - 1s - loss: 0.5206
+ - 1s - loss: 0.4078
 Epoch 12/200
- - 1s - loss: 0.5183
+ - 1s - loss: 0.4082
 Epoch 13/200
- - 1s - loss: 0.5158
+ - 1s - loss: 0.4051
 Epoch 14/200
- - 1s - loss: 0.5139
+ - 1s - loss: 0.4035
 Epoch 15/200
- - 1s - loss: 0.5125
+ - 1s - loss: 0.4029
 Epoch 16/200
- - 1s - loss: 0.5112
+ - 1s - loss: 0.4009
 Epoch 17/200
- - 1s - loss: 0.5090
+ - 1s - loss: 0.4008
 Epoch 18/200
- - 1s - loss: 0.5084
+ - 1s - loss: 0.3997
 Epoch 19/200
- - 1s - loss: 0.5074
+ - 1s - loss: 0.3983
 Epoch 20/200
- - 1s - loss: 0.5065
+ - 1s - loss: 0.3960
 Epoch 21/200
- - 1s - loss: 0.5052
+ - 1s - loss: 0.3959
 Epoch 22/200
- - 1s - loss: 0.5039
+ - 1s - loss: 0.3955
 Epoch 23/200
- - 1s - loss: 0.5033
+ - 1s - loss: 0.3944
 Epoch 24/200
- - 1s - loss: 0.5022
+ - 1s - loss: 0.3926
 Epoch 25/200
- - 1s - loss: 0.5015
+ - 1s - loss: 0.3926
 Epoch 26/200
- - 1s - loss: 0.5008
+ - 1s - loss: 0.3912
 Epoch 27/200
- - 1s - loss: 0.5000
+ - 1s - loss: 0.3906
 Epoch 28/200
- - 1s - loss: 0.4994
+ - 1s - loss: 0.3914
 Epoch 29/200
- - 1s - loss: 0.4984
+ - 1s - loss: 0.3914
 Epoch 30/200
- - 1s - loss: 0.4983
+ - 1s - loss: 0.3902
 Epoch 31/200
- - 1s - loss: 0.4974
+ - 1s - loss: 0.3885
 Epoch 32/200
- - 1s - loss: 0.4969
+ - 1s - loss: 0.3880
 Epoch 33/200
- - 1s - loss: 0.4966
+ - 1s - loss: 0.3881
 Epoch 34/200
- - 1s - loss: 0.4962
+ - 1s - loss: 0.3873
 Epoch 35/200
- - 1s - loss: 0.4956
+ - 1s - loss: 0.3860
 Epoch 36/200
- - 1s - loss: 0.4954
+ - 1s - loss: 0.3867
 Epoch 37/200
- - 1s - loss: 0.4948
+ - 1s - loss: 0.3856
 Epoch 38/200
- - 1s - loss: 0.4947
+ - 1s - loss: 0.3853
 Epoch 39/200
- - 1s - loss: 0.4938
+ - 1s - loss: 0.3852
 Epoch 40/200
- - 1s - loss: 0.4935
+ - 1s - loss: 0.3848
 Epoch 41/200
- - 1s - loss: 0.4930
+ - 1s - loss: 0.3838
 Epoch 42/200
- - 1s - loss: 0.4928
+ - 1s - loss: 0.3846
 Epoch 43/200
- - 1s - loss: 0.4928
+ - 1s - loss: 0.3837
 Epoch 44/200
- - 1s - loss: 0.4920
+ - 1s - loss: 0.3831
 Epoch 45/200
- - 1s - loss: 0.4920
+ - 1s - loss: 0.3825
 Epoch 46/200
- - 1s - loss: 0.4918
+ - 1s - loss: 0.3829
 Epoch 47/200
- - 1s - loss: 0.4917
+ - 1s - loss: 0.3817
 Epoch 48/200
- - 1s - loss: 0.4911
+ - 1s - loss: 0.3812
 Epoch 49/200
- - 1s - loss: 0.4908
+ - 1s - loss: 0.3825
 Epoch 50/200
- - 1s - loss: 0.4906
+ - 1s - loss: 0.3813
 Epoch 51/200
- - 1s - loss: 0.4898
+ - 1s - loss: 0.3812
 Epoch 52/200
- - 1s - loss: 0.4897
+ - 1s - loss: 0.3812
 Epoch 53/200
- - 1s - loss: 0.4901
+ - 1s - loss: 0.3804
 Epoch 54/200
- - 1s - loss: 0.4890
+ - 1s - loss: 0.3801
 Epoch 55/200
- - 1s - loss: 0.4892
+ - 1s - loss: 0.3803
 Epoch 56/200
- - 1s - loss: 0.4889
+ - 1s - loss: 0.3791
 Epoch 57/200
- - 1s - loss: 0.4892
+ - 1s - loss: 0.3794
 Epoch 58/200
- - 1s - loss: 0.4889
+ - 1s - loss: 0.3797
 Epoch 59/200
- - 1s - loss: 0.4886
+ - 1s - loss: 0.3788
 Epoch 60/200
- - 1s - loss: 0.4883
+ - 1s - loss: 0.3790
 Epoch 61/200
- - 1s - loss: 0.4880
+ - 1s - loss: 0.3783
 Epoch 62/200
- - 1s - loss: 0.4880
+ - 1s - loss: 0.3781
 Epoch 63/200
- - 1s - loss: 0.4878
+ - 1s - loss: 0.3777
 Epoch 64/200
- - 1s - loss: 0.4876
+ - 1s - loss: 0.3775
 Epoch 65/200
- - 1s - loss: 0.4868
+ - 1s - loss: 0.3784
 Epoch 66/200
- - 1s - loss: 0.4869
+ - 1s - loss: 0.3776
 Epoch 67/200
- - 1s - loss: 0.4871
+ - 1s - loss: 0.3781
 Epoch 68/200
- - 1s - loss: 0.4867
+ - 1s - loss: 0.3778
 Epoch 69/200
- - 1s - loss: 0.4867
+ - 1s - loss: 0.3772
 Epoch 70/200
- - 1s - loss: 0.4863
+ - 1s - loss: 0.3769
 Epoch 71/200
- - 1s - loss: 0.4863
+ - 1s - loss: 0.3767
 Epoch 72/200
- - 1s - loss: 0.4860
+ - 1s - loss: 0.3770
 Epoch 73/200
- - 1s - loss: 0.4859
+ - 1s - loss: 0.3761
 Epoch 74/200
- - 1s - loss: 0.4854
+ - 1s - loss: 0.3760
 Epoch 75/200
- - 1s - loss: 0.4859
+ - 1s - loss: 0.3757
 Epoch 76/200
- - 1s - loss: 0.4859
+ - 1s - loss: 0.3763
 Epoch 77/200
- - 1s - loss: 0.4852
+ - 1s - loss: 0.3764
 Epoch 78/200
- - 1s - loss: 0.4852
+ - 1s - loss: 0.3750
 Epoch 79/200
- - 1s - loss: 0.4852
+ - 1s - loss: 0.3751
 Epoch 80/200
- - 1s - loss: 0.4847
+ - 1s - loss: 0.3751
 Epoch 81/200
- - 1s - loss: 0.4848
+ - 1s - loss: 0.3749
 Epoch 82/200
- - 1s - loss: 0.4846
+ - 1s - loss: 0.3744
 Epoch 83/200
- - 1s - loss: 0.4845
+ - 1s - loss: 0.3747
 Epoch 84/200
- - 1s - loss: 0.4844
+ - 1s - loss: 0.3745
 Epoch 85/200
- - 1s - loss: 0.4839
+ - 1s - loss: 0.3752
 Epoch 86/200
- - 1s - loss: 0.4839
+ - 1s - loss: 0.3750
 Epoch 87/200
- - 1s - loss: 0.4838
+ - 1s - loss: 0.3745
 Epoch 88/200
- - 1s - loss: 0.4845
+ - 1s - loss: 0.3741
 Epoch 89/200
- - 1s - loss: 0.4836
+ - 1s - loss: 0.3746
 Epoch 90/200
- - 1s - loss: 0.4839
+ - 1s - loss: 0.3742
 Epoch 91/200
- - 1s - loss: 0.4832
+ - 1s - loss: 0.3733
 Epoch 92/200
- - 1s - loss: 0.4836
+ - 1s - loss: 0.3735
 Epoch 93/200
- - 1s - loss: 0.4836
+ - 1s - loss: 0.3740
 Epoch 94/200
- - 1s - loss: 0.4837
+ - 1s - loss: 0.3731
 Epoch 95/200
- - 1s - loss: 0.4833
+ - 1s - loss: 0.3733
 Epoch 96/200
- - 1s - loss: 0.4829
+ - 1s - loss: 0.3729
 Epoch 97/200
- - 1s - loss: 0.4832
+ - 1s - loss: 0.3742
 Epoch 98/200
- - 1s - loss: 0.4827
+ - 1s - loss: 0.3726
 Epoch 99/200
- - 1s - loss: 0.4827
+ - 1s - loss: 0.3728
 Epoch 100/200
- - 1s - loss: 0.4825
+ - 1s - loss: 0.3730
 Epoch 101/200
- - 1s - loss: 0.4824
+ - 1s - loss: 0.3734
 Epoch 102/200
- - 1s - loss: 0.4822
+ - 1s - loss: 0.3731
 Epoch 103/200
- - 1s - loss: 0.4818
+ - 1s - loss: 0.3724
 Epoch 104/200
- - 1s - loss: 0.4819
+ - 1s - loss: 0.3727
 Epoch 105/200
- - 1s - loss: 0.4819
+ - 1s - loss: 0.3722
 Epoch 106/200
- - 1s - loss: 0.4818
+ - 1s - loss: 0.3725
 Epoch 107/200
- - 1s - loss: 0.4823
+ - 1s - loss: 0.3727
 Epoch 108/200
- - 1s - loss: 0.4819
+ - 1s - loss: 0.3721
 Epoch 109/200
- - 1s - loss: 0.4818
+ - 1s - loss: 0.3710
 Epoch 110/200
- - 1s - loss: 0.4815
+ - 1s - loss: 0.3720
 Epoch 111/200
- - 1s - loss: 0.4816
+ - 1s - loss: 0.3723
 Epoch 112/200
- - 1s - loss: 0.4815
+ - 1s - loss: 0.3718
 Epoch 113/200
- - 1s - loss: 0.4812
+ - 1s - loss: 0.3721
 Epoch 114/200
- - 1s - loss: 0.4816
+ - 1s - loss: 0.3713
 Epoch 115/200
- - 1s - loss: 0.4810
+ - 1s - loss: 0.3717
 Epoch 116/200
- - 1s - loss: 0.4810
+ - 1s - loss: 0.3716
 Epoch 117/200
- - 1s - loss: 0.4813
+ - 1s - loss: 0.3721
 Epoch 118/200
- - 1s - loss: 0.4804
+ - 1s - loss: 0.3716
 Epoch 119/200
- - 1s - loss: 0.4810
+ - 1s - loss: 0.3712
 Epoch 120/200
- - 1s - loss: 0.4806
+ - 1s - loss: 0.3717
 Epoch 121/200
- - 1s - loss: 0.4811
+ - 1s - loss: 0.3715
 Epoch 122/200
- - 1s - loss: 0.4803
+ - 1s - loss: 0.3707
 Epoch 123/200
- - 1s - loss: 0.4800
+ - 1s - loss: 0.3710
 Epoch 124/200
- - 1s - loss: 0.4805
+ - 1s - loss: 0.3714
 Epoch 125/200
- - 1s - loss: 0.4803
+ - 1s - loss: 0.3715
 Epoch 126/200
- - 1s - loss: 0.4801
+ - 1s - loss: 0.3708
 Epoch 127/200
- - 1s - loss: 0.4803
+ - 1s - loss: 0.3713
 Epoch 128/200
- - 1s - loss: 0.4799
+ - 1s - loss: 0.3709
 Epoch 129/200
- - 1s - loss: 0.4803
+ - 1s - loss: 0.3708
 Epoch 130/200
- - 1s - loss: 0.4797
+ - 1s - loss: 0.3708
 Epoch 131/200
- - 1s - loss: 0.4797
+ - 1s - loss: 0.3711
 Epoch 132/200
- - 1s - loss: 0.4799
+ - 1s - loss: 0.3708
 Epoch 133/200
- - 1s - loss: 0.4796
+ - 1s - loss: 0.3711
 Epoch 134/200
- - 1s - loss: 0.4796
+ - 1s - loss: 0.3708
 Epoch 135/200
- - 1s - loss: 0.4797
+ - 1s - loss: 0.3706
 Epoch 136/200
- - 1s - loss: 0.4794
+ - 1s - loss: 0.3697
 Epoch 137/200
- - 1s - loss: 0.4797
+ - 1s - loss: 0.3710
 Epoch 138/200
- - 1s - loss: 0.4796
+ - 1s - loss: 0.3697
 Epoch 139/200
- - 1s - loss: 0.4797
+ - 1s - loss: 0.3706
 Epoch 140/200
- - 1s - loss: 0.4790
+ - 1s - loss: 0.3699
 Epoch 141/200
- - 1s - loss: 0.4789
+ - 1s - loss: 0.3694
 Epoch 142/200
- - 1s - loss: 0.4791
+ - 1s - loss: 0.3696
 Epoch 143/200
- - 1s - loss: 0.4792
+ - 1s - loss: 0.3702
 Epoch 144/200
- - 1s - loss: 0.4788
+ - 1s - loss: 0.3681
 Epoch 145/200
- - 1s - loss: 0.4791
+ - 1s - loss: 0.3692
 Epoch 146/200
- - 1s - loss: 0.4787
+ - 1s - loss: 0.3696
 Epoch 147/200
- - 1s - loss: 0.4788
+ - 1s - loss: 0.3700
 Epoch 148/200
- - 1s - loss: 0.4785
+ - 1s - loss: 0.3695
 Epoch 149/200
- - 1s - loss: 0.4789
+ - 1s - loss: 0.3689
 Epoch 150/200
- - 1s - loss: 0.4785
+ - 1s - loss: 0.3696
 Epoch 151/200
- - 1s - loss: 0.4786
+ - 1s - loss: 0.3690
 Epoch 152/200
- - 1s - loss: 0.4786
+ - 1s - loss: 0.3690
 Epoch 153/200
- - 1s - loss: 0.4785
+ - 1s - loss: 0.3689
 Epoch 154/200
- - 1s - loss: 0.4783
+ - 1s - loss: 0.3701
 Epoch 155/200
- - 1s - loss: 0.4781
+ - 1s - loss: 0.3686
 Epoch 156/200
- - 1s - loss: 0.4785
+ - 1s - loss: 0.3693
 Epoch 157/200
- - 1s - loss: 0.4779
+ - 1s - loss: 0.3693
 Epoch 158/200
- - 1s - loss: 0.4784
+ - 1s - loss: 0.3696
 Epoch 159/200
- - 1s - loss: 0.4784
+ - 1s - loss: 0.3691
 Epoch 160/200
- - 1s - loss: 0.4783
+ - 1s - loss: 0.3690
 Epoch 161/200
- - 1s - loss: 0.4781
+ - 1s - loss: 0.3691
 Epoch 162/200
- - 1s - loss: 0.4778
+ - 1s - loss: 0.3692
 Epoch 163/200
- - 1s - loss: 0.4778
+ - 1s - loss: 0.3693
 Epoch 164/200
- - 1s - loss: 0.4779
+ - 1s - loss: 0.3689
 Epoch 165/200
- - 1s - loss: 0.4776
+ - 1s - loss: 0.3681
 Epoch 166/200
- - 1s - loss: 0.4783
+ - 1s - loss: 0.3690
 Epoch 167/200
- - 1s - loss: 0.4774
+ - 1s - loss: 0.3687
 Epoch 168/200
- - 1s - loss: 0.4777
+ - 1s - loss: 0.3682
 Epoch 169/200
- - 1s - loss: 0.4772
+ - 1s - loss: 0.3675
 Epoch 170/200
- - 1s - loss: 0.4777
+ - 1s - loss: 0.3684
 Epoch 171/200
- - 1s - loss: 0.4775
+ - 1s - loss: 0.3687
 Epoch 172/200
- - 1s - loss: 0.4773
+ - 1s - loss: 0.3682
 Epoch 173/200
- - 1s - loss: 0.4778
+ - 1s - loss: 0.3685
 Epoch 174/200
- - 1s - loss: 0.4772
+ - 1s - loss: 0.3684
 Epoch 175/200
- - 1s - loss: 0.4773
+ - 1s - loss: 0.3693
 Epoch 176/200
- - 1s - loss: 0.4770
+ - 1s - loss: 0.3685
 Epoch 177/200
- - 1s - loss: 0.4774
+ - 1s - loss: 0.3692
 Epoch 178/200
- - 1s - loss: 0.4776
+ - 1s - loss: 0.3683
 Epoch 179/200
- - 1s - loss: 0.4766
+ - 1s - loss: 0.3691
 Epoch 180/200
- - 1s - loss: 0.4771
+ - 1s - loss: 0.3684
 Epoch 181/200
- - 1s - loss: 0.4772
+ - 1s - loss: 0.3681
 Epoch 182/200
- - 1s - loss: 0.4770
+ - 1s - loss: 0.3684
 Epoch 183/200
- - 1s - loss: 0.4769
+ - 1s - loss: 0.3677
 Epoch 184/200
- - 1s - loss: 0.4770
+ - 1s - loss: 0.3687
 Epoch 185/200
- - 1s - loss: 0.4767
+ - 1s - loss: 0.3683
 Epoch 186/200
- - 1s - loss: 0.4767
+ - 1s - loss: 0.3681
 Epoch 187/200
- - 1s - loss: 0.4765
+ - 1s - loss: 0.3687
 Epoch 188/200
- - 1s - loss: 0.4766
+ - 1s - loss: 0.3677
 Epoch 189/200
- - 1s - loss: 0.4766
+ - 1s - loss: 0.3678
 Epoch 190/200
- - 1s - loss: 0.4766
+ - 1s - loss: 0.3671
 Epoch 191/200
- - 1s - loss: 0.4766
+ - 1s - loss: 0.3688
 Epoch 192/200
- - 1s - loss: 0.4763
+ - 1s - loss: 0.3678
 Epoch 193/200
- - 1s - loss: 0.4770
+ - 1s - loss: 0.3670
 Epoch 194/200
- - 1s - loss: 0.4764
+ - 1s - loss: 0.3675
 Epoch 195/200
- - 1s - loss: 0.4763
+ - 1s - loss: 0.3683
 Epoch 196/200
- - 1s - loss: 0.4766
+ - 1s - loss: 0.3681
 Epoch 197/200
- - 1s - loss: 0.4761
+ - 1s - loss: 0.3679
 Epoch 198/200
- - 1s - loss: 0.4768
+ - 1s - loss: 0.3680
 Epoch 199/200
- - 1s - loss: 0.4761
+ - 1s - loss: 0.3676
 Epoch 200/200
- - 1s - loss: 0.4762
-[38;2;74;176;245m[1mProfile[0m ⏱  ·· Time elapsed in [1mClassifier-only fit, full[0m: ................ [1m358.1s[0m
-[38;2;74;176;245m[1mProfile[0m ⏱  Time elapsed in [1m@main[0m: ....................................... [1m401.8s[0m
+ - 1s - loss: 0.3672
+[38;2;74;176;245m[1mProfile[0m ⏱  ·· Time elapsed in [1mClassifier-only fit, full[0m: ................ [1m551.6s[0m
+[38;2;74;176;245m[1mProfile[0m ⏱  Time elapsed in [1m@main[0m: ....................................... [1m883.5s[0m

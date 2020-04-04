@@ -14,7 +14,7 @@ cd /hpcfs/bes/mlgpu/gang/adversarial
 source setup.sh
 echo 'pwd: ' $(pwd)
 
-#python -m run.disco.train --gpu --devices=1 --verbose --optimise-classifier --config='./configs/default_disco.json'
+#python -m run.disco.train --gpu --devices=1 --verbose --optimise-classifier --config='./configs/default_disco_lambda1.json'
 python -m run.disco.train --gpu --devices=1 --verbose --train-classifier --config='./configs/default_disco_lambda1.json'
 
 

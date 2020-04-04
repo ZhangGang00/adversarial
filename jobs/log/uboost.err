@@ -1,2 +1,3 @@
-INFO: Found   177420 training and   178234 test samples for signal
-INFO: Found   157985 training and  1582048 test samples for background
+INFO: Found   151028 training and   150575 test samples for signal
+INFO: Found   113286 training and  1136518 test samples for background
+slurmstepd: error: *** JOB 342831 ON gpu028 CANCELLED AT 2020-04-04T13:52:36 ***
