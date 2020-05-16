@@ -50,15 +50,19 @@ def DisCo(y_true_tmp, y_pred, alpha = 0., power = 1, normedweight=1):
     y_true = tf.gather(y_true_tmp, [0], axis=1)
     X_in = tf.gather(y_true_tmp, [1], axis=1)
     Y_in = y_pred
+    W_in = tf.gather(y_true_tmp, [2], axis=1)
     print 'X_in shape: ', X_in.get_shape()
     print 'Y_in shape: ', Y_in.get_shape()
+    print 'W_in shape: ', W_in.get_shape()
 
     mymaskX = tf.where(y_true<1,K.ones_like(X_in, dtype=bool),K.zeros_like(X_in, dtype=bool))
     mymaskY = tf.where(y_true<1,K.ones_like(Y_in, dtype=bool),K.zeros_like(Y_in, dtype=bool))
     var_1 = tf.boolean_mask(X_in, mymaskX)
     var_2 = tf.boolean_mask(Y_in, mymaskY)
+    #normedweight = tf.boolean_mask(W_in, mymaskX)
     print 'var_1 shape: ', var_1.get_shape()
     print 'var_2 shape: ', var_2.get_shape()
+    #print 'normedweight shape: ', normedweight.get_shape()
 
     xx = tf.reshape(var_1, [-1, 1])
     xx = tf.tile(xx, [1, tf.size(var_1)])
@@ -152,8 +156,9 @@ def main (args):
 
     # Loading data
     # --------------------------------------------------------------------------
-    #data, features, features_decorrelation = load_data(args.input + 'data_10000.h5', train=True)
-    data, features, features_decorrelation = load_data(args.input + 'data.h5', train=True)
+    #data, features, features_decorrelation = load_data(args.input + 'data_10000.h5')
+    data, features, features_decorrelation = load_data(args.input + 'data.h5')
+    #data, features, features_decorrelation = load_data(args.input + 'data.h5', train=True)
     '''
     kNN_var = 'D2-k#minusNN'
     with Profile("Add variables"):
@@ -162,19 +167,19 @@ def main (args):
         add_ddt(data, path='models/ddt/ddt.pkl.gz')
 
         # D2-CSS
-        from run.css.common import add_css
-        add_css("D2", data)
+        #from run.css.common import add_css
+        #add_css("D2", data)
 
         # D2-kNN
-        #from run.knn.common import add_knn, VAR as kNN_basevar, EFF as kNN_eff
-        #print "k-NN base variable: {} (cp. {})".format(kNN_basevar, kNN_var)
-        #add_knn(data, newfeat=kNN_var, path='models/knn/knn_{}_{}.pkl.gz'.format(kNN_basevar, kNN_eff))
+        from run.knn.common import add_knn, VAR as kNN_basevar, EFF as kNN_eff
+        print "k-NN base variable: {} (cp. {})".format(kNN_basevar, kNN_var)
+        add_knn(data, newfeat=kNN_var, path='models/knn/knn_{}_{}.pkl.gz'.format(kNN_basevar, kNN_eff))
         pass
-    features.remove('D2')
     features.remove('Tau21')
-    features.insert(0,'D2CSS')
+    features.remove('D2')
     features.insert(0,'Tau21DDT')
-    #features.insert(0,'D2-k#minusNN')
+    #features.insert(0,'D2CSS')
+    features.insert(0,'D2-k#minusNN')
     '''
     num_features = len(features)
 
@@ -209,8 +214,8 @@ def main (args):
 
         # Get indices for each fold in stratified k-fold training
         # @NOTE: No shuffling is performed -- assuming that's already done.
-        skf = StratifiedKFold(n_splits=args.folds).split(data[features].values,
-                                                         data['signal'].values)
+        skf = StratifiedKFold(n_splits=args.folds).split(data[features].values[data['train']  == 1],
+                                                         data['signal'].values[data['train']  == 1])
 
         # Collection of classifiers and their associated training histories
         classifiers = list()
@@ -321,16 +326,25 @@ def main (args):
                 pass
 
             # Prepare arrays
-            X = data[features].values
-            Y = np.stack((data['signal'].values, data['m'].values), axis=1)
-            W = data['weight_clf'].values
+            X = data[features].values[data['train']  == 1]
+            #Y = np.stack((data['signal'].values[data['train']  == 1], data['m'].values[data['train']  == 1]), axis=1)
+            Y = np.stack((data['signal'].values[data['train']  == 1], data['m'].values[data['train']  == 1], data['weight_clf'].values[data['train']  == 1]), axis=1)
+            W = data['weight_clf'].values[data['train']  == 1]
+            validation_data = (
+                data[features].values[data['train']  == 0],
+                #np.stack((data['signal'].values[data['train']  == 0], data['m'].values[data['train']  == 0]), axis=1),
+                np.stack((data['signal'].values[data['train']  == 0], data['m'].values[data['train']  == 0], data['weight_clf'].values[data['train']  == 0]), axis=1),
+                data['weight_clf'].values[data['train']  == 0]
+             )
+
             print 'Main X shape:', X.shape
             print 'Main Y shape:', Y.shape
+            print 'Main W shape:', W.shape
             #print 'Y[:,0] = ', Y[:,0]
             #print 'Y[:,1] = ', Y[:,1]
 
             # Fit classifier model
-            ret = parallelised.fit(X, Y, sample_weight=W, callbacks=callbacks, **cfg['classifier']['fit'])
+            ret = parallelised.fit(X, Y, sample_weight=W, validation_data=validation_data, callbacks=callbacks, **cfg['classifier']['fit'])
 
             # Save classifier model and training history to file, both in unique
             # output directory and in the directory for pre-trained classifiers.

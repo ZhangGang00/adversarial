@@ -4,7 +4,7 @@
 #SBATCH --qos=normal
 #SBATCH --account=mlgpu
 #SBATCH --ntasks=1
-#SBATCH --mem-per-cpu=8000
+#SBATCH --mem-per-cpu=16000
 #SBATCH --gres=gpu:v100:1
 
 /usr/bin/nvidia-smi -L

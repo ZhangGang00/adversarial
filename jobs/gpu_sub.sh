@@ -16,3 +16,13 @@ sbatch --job-name=disco_lambda10 --error=/hpcfs/bes/mlgpu/gang/adversarial/jobs/
 sbatch --job-name=disco_lambda30 --error=/hpcfs/bes/mlgpu/gang/adversarial/jobs/log/disco_lambda30.err --output=/hpcfs/bes/mlgpu/gang/adversarial/jobs/log/disco_lambda30.out disco_lambda30.sh
 
 sbatch --job-name=disco_lambda50 --error=/hpcfs/bes/mlgpu/gang/adversarial/jobs/log/disco_lambda50.err --output=/hpcfs/bes/mlgpu/gang/adversarial/jobs/log/disco_lambda50.out disco_lambda50.sh
+
+#sbatch --job-name=disco_lambda70 --error=/hpcfs/bes/mlgpu/gang/adversarial/jobs/log/disco_lambda70.err --output=/hpcfs/bes/mlgpu/gang/adversarial/jobs/log/disco_lambda70.out disco_lambda70.sh
+
+#sbatch --job-name=disco_lambda100 --error=/hpcfs/bes/mlgpu/gang/adversarial/jobs/log/disco_lambda100.err --output=/hpcfs/bes/mlgpu/gang/adversarial/jobs/log/disco_lambda100.out disco_lambda100.sh
+
+#sbatch --job-name=disco_lambda150 --error=/hpcfs/bes/mlgpu/gang/adversarial/jobs/log/disco_lambda150.err --output=/hpcfs/bes/mlgpu/gang/adversarial/jobs/log/disco_lambda150.out disco_lambda150.sh
+
+#sbatch --job-name=disco_lambda300 --error=/hpcfs/bes/mlgpu/gang/adversarial/jobs/log/disco_lambda300.err --output=/hpcfs/bes/mlgpu/gang/adversarial/jobs/log/disco_lambda300.out disco_lambda300.sh
+
+#sbatch --job-name=disco_lambda500 --error=/hpcfs/bes/mlgpu/gang/adversarial/jobs/log/disco_lambda500.err --output=/hpcfs/bes/mlgpu/gang/adversarial/jobs/log/disco_lambda500.out disco_lambda500.sh

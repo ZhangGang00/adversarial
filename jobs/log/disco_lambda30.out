@@ -1,4 +1,4 @@
-GPU 0: Tesla V100-SXM2-32GB (UUID: GPU-c4091690-ba0e-ef12-1e00-3ed5c44fab67)
+GPU 0: Tesla V100-SXM2-32GB (UUID: GPU-d716e543-af20-5d8d-0a50-6a88f7b8bc26)
 Allocate GPU cards : 0
 🚨  [0;38;5;196mGPU mode requested. Make sure you have Cuda/CuDNN installed[0m
 🎃  [0;38;5;208mActivating conda environment 'adversarial-gpu' on local platform[0m
@@ -6,11 +6,11 @@ pwd:  /hpcfs/bes/mlgpu/gang/adversarial
 [38;2;74;176;245m[1mProfile[0m ⏱  Starting [1m@main[0m
 [38;2;74;176;245m[1mProfile[0m ⏱  ·· Starting [1mInitialisation[0m
 [38;2;74;176;245m[1mProfile[0m ⏱  ···· Starting [1m@initialise[0m
-[38;2;74;176;245m[1mProfile[0m ⏱  ···· Time elapsed in [1m@initialise[0m: .............................. [1m0.0s[0m
+[38;2;74;176;245m[1mProfile[0m ⏱  ···· Time elapsed in [1m@initialise[0m: .............................. [1m1.0s[0m
 [38;2;74;176;245m[1mProfile[0m ⏱  ···· Starting [1m@initialise_backend[0m
 [38;2;74;176;245m[1mProfile[0m ⏱  ······ Starting [1m@configure_tensorflow[0m
-[38;2;74;176;245m[1mProfile[0m ⏱  ······ Time elapsed in [1m@configure_tensorflow[0m: .................. [1m8.6s[0m
-[38;2;74;176;245m[1mProfile[0m ⏱  ···· Time elapsed in [1m@initialise_backend[0m: ...................... [1m9.0s[0m
+[38;2;74;176;245m[1mProfile[0m ⏱  ······ Time elapsed in [1m@configure_tensorflow[0m: ................ [1m529.3s[0m
+[38;2;74;176;245m[1mProfile[0m ⏱  ···· Time elapsed in [1m@initialise_backend[0m: .................... [1m532.9s[0m
 {'config': './configs/default_disco_lambda30.json',
  'devices': 1,
  'folds': 3,
@@ -29,7 +29,7 @@ pwd:  /hpcfs/bes/mlgpu/gang/adversarial
  'train_classifier': True,
  'verbose': True}
 {u'classifier': {u'compile': {u'loss': None,
-                              u'optimizer': <keras.optimizers.Adam object at 0x2b04a70f0d90>},
+                              u'optimizer': <keras.optimizers.Adam object at 0x2ac88a7d19d0>},
                  u'fit': {u'batch_size': 2048,
                           u'epochs': 200,
                           u'shuffle': True,
@@ -40,422 +40,425 @@ pwd:  /hpcfs/bes/mlgpu/gang/adversarial
                                          u'batchnorm': True,
                                          u'units': 64}}}}
   TensorFlow version: 1.4.1
-[38;2;74;176;245m[1mProfile[0m ⏱  ·· Time elapsed in [1mInitialisation[0m: ............................. [1m9.7s[0m
+[38;2;74;176;245m[1mProfile[0m ⏱  ·· Time elapsed in [1mInitialisation[0m: ........................... [1m534.5s[0m
 [38;2;74;176;245m[1mProfile[0m ⏱  ·· Starting [1m@load_data[0m
-[38;2;74;176;245m[1mProfile[0m ⏱  ·· Time elapsed in [1m@load_data[0m: ............................... [1m321.9s[0m
+[38;2;74;176;245m[1mProfile[0m ⏱  ·· Time elapsed in [1m@load_data[0m: ............................... [1m377.6s[0m
 lambda_reg =  30.0
 lambda_str =  30
 [38;2;74;176;245m[1mProfile[0m ⏱  ·· Starting [1m@get_decorrelation_variables[0m
-[38;2;74;176;245m[1mProfile[0m ⏱  ·· Time elapsed in [1m@get_decorrelation_variables[0m: ............... [1m0.0s[0m
+[38;2;74;176;245m[1mProfile[0m ⏱  ·· Time elapsed in [1m@get_decorrelation_variables[0m: ............... [1m2.3s[0m
 [38;2;74;176;245m[1mProfile[0m ⏱  ·· Starting [1mClassifier-only fit, cross-validation[0m
-[38;2;74;176;245m[1mProfile[0m ⏱  ·· Time elapsed in [1mClassifier-only fit, cross-validation[0m: ...... [1m0.0s[0m
+[38;2;74;176;245m[1mProfile[0m ⏱  ·· Time elapsed in [1mClassifier-only fit, cross-validation[0m: ...... [1m0.1s[0m
 [38;2;74;176;245m[1mProfile[0m ⏱  ·· Starting [1mClassifier-only fit, full[0m
 y_true_tmp =  Tensor("classifier/output_target:0", shape=(?, ?), dtype=float32)
 X_in shape:  (?, 1)
 Y_in shape:  (?, 1)
+W_in shape:  (?, 1)
 var_1 shape:  (?,)
 var_2 shape:  (?,)
-Main X shape: (264314, 10)
-Main Y shape: (264314, 2)
+Main X shape: (291138, 10)
+Main Y shape: (291138, 3)
+Main W shape: (291138,)
+Train on 291138 samples, validate on 290701 samples
 Epoch 1/200
- - 263s - loss: 0.8933
+ - 319s - loss: 0.7435 - val_loss: 0.5958
 Epoch 2/200
- - 1s - loss: 0.7286
+ - 2s - loss: 0.5529 - val_loss: 0.5147
 Epoch 3/200
- - 1s - loss: 0.6553
+ - 2s - loss: 0.4911 - val_loss: 0.4742
 Epoch 4/200
- - 1s - loss: 0.6313
+ - 2s - loss: 0.4572 - val_loss: 0.4525
 Epoch 5/200
- - 1s - loss: 0.5954
+ - 2s - loss: 0.4363 - val_loss: 0.4383
 Epoch 6/200
- - 1s - loss: 0.5908
+ - 2s - loss: 0.4283 - val_loss: 0.4299
 Epoch 7/200
- - 1s - loss: 0.5688
+ - 2s - loss: 0.4216 - val_loss: 0.4238
 Epoch 8/200
- - 1s - loss: 0.5513
+ - 2s - loss: 0.4119 - val_loss: 0.4184
 Epoch 9/200
- - 1s - loss: 0.5512
+ - 2s - loss: 0.4124 - val_loss: 0.4199
 Epoch 10/200
- - 1s - loss: 0.5418
+ - 2s - loss: 0.4070 - val_loss: 0.4152
 Epoch 11/200
- - 1s - loss: 0.5329
+ - 2s - loss: 0.4074 - val_loss: 0.4152
 Epoch 12/200
- - 1s - loss: 0.5396
+ - 2s - loss: 0.4050 - val_loss: 0.4139
 Epoch 13/200
- - 1s - loss: 0.5310
+ - 2s - loss: 0.4008 - val_loss: 0.4053
 Epoch 14/200
- - 1s - loss: 0.5225
+ - 2s - loss: 0.4033 - val_loss: 0.4061
 Epoch 15/200
- - 1s - loss: 0.5205
+ - 2s - loss: 0.4009 - val_loss: 0.4018
 Epoch 16/200
- - 1s - loss: 0.5195
+ - 2s - loss: 0.3905 - val_loss: 0.4002
 Epoch 17/200
- - 1s - loss: 0.5230
+ - 2s - loss: 0.3926 - val_loss: 0.3987
 Epoch 18/200
- - 1s - loss: 0.5214
+ - 2s - loss: 0.3937 - val_loss: 0.4011
 Epoch 19/200
- - 1s - loss: 0.5183
+ - 2s - loss: 0.3946 - val_loss: 0.3961
 Epoch 20/200
- - 1s - loss: 0.5101
+ - 2s - loss: 0.3897 - val_loss: 0.3959
 Epoch 21/200
- - 1s - loss: 0.5146
+ - 2s - loss: 0.3923 - val_loss: 0.3974
 Epoch 22/200
- - 1s - loss: 0.5125
+ - 2s - loss: 0.3885 - val_loss: 0.3936
 Epoch 23/200
- - 1s - loss: 0.5147
+ - 2s - loss: 0.3865 - val_loss: 0.3922
 Epoch 24/200
- - 1s - loss: 0.5092
+ - 2s - loss: 0.3852 - val_loss: 0.3917
 Epoch 25/200
- - 1s - loss: 0.5150
+ - 2s - loss: 0.3881 - val_loss: 0.3911
 Epoch 26/200
- - 1s - loss: 0.5075
+ - 2s - loss: 0.3855 - val_loss: 0.3932
 Epoch 27/200
- - 1s - loss: 0.5048
+ - 2s - loss: 0.3847 - val_loss: 0.3896
 Epoch 28/200
- - 1s - loss: 0.5135
+ - 2s - loss: 0.3867 - val_loss: 0.3889
 Epoch 29/200
- - 1s - loss: 0.5156
+ - 2s - loss: 0.3888 - val_loss: 0.3884
 Epoch 30/200
- - 1s - loss: 0.5105
+ - 2s - loss: 0.3821 - val_loss: 0.3876
 Epoch 31/200
- - 1s - loss: 0.5019
+ - 2s - loss: 0.3811 - val_loss: 0.3883
 Epoch 32/200
- - 1s - loss: 0.5043
+ - 2s - loss: 0.3831 - val_loss: 0.3871
 Epoch 33/200
- - 1s - loss: 0.5049
+ - 2s - loss: 0.3862 - val_loss: 0.3869
 Epoch 34/200
- - 1s - loss: 0.5051
+ - 2s - loss: 0.3816 - val_loss: 0.3856
 Epoch 35/200
- - 1s - loss: 0.4974
+ - 2s - loss: 0.3789 - val_loss: 0.3848
 Epoch 36/200
- - 1s - loss: 0.5050
+ - 2s - loss: 0.3835 - val_loss: 0.3847
 Epoch 37/200
- - 1s - loss: 0.5019
+ - 2s - loss: 0.3796 - val_loss: 0.3842
 Epoch 38/200
- - 1s - loss: 0.5021
+ - 2s - loss: 0.3764 - val_loss: 0.3840
 Epoch 39/200
- - 1s - loss: 0.5006
+ - 2s - loss: 0.3763 - val_loss: 0.3833
 Epoch 40/200
- - 1s - loss: 0.5002
+ - 2s - loss: 0.3775 - val_loss: 0.3833
 Epoch 41/200
- - 1s - loss: 0.4979
+ - 2s - loss: 0.3791 - val_loss: 0.3834
 Epoch 42/200
- - 1s - loss: 0.5043
+ - 2s - loss: 0.3761 - val_loss: 0.3821
 Epoch 43/200
- - 1s - loss: 0.4952
+ - 2s - loss: 0.3784 - val_loss: 0.3819
 Epoch 44/200
- - 1s - loss: 0.4958
+ - 2s - loss: 0.3785 - val_loss: 0.3815
 Epoch 45/200
- - 1s - loss: 0.4950
+ - 2s - loss: 0.3785 - val_loss: 0.3812
 Epoch 46/200
- - 1s - loss: 0.4975
+ - 2s - loss: 0.3793 - val_loss: 0.3811
 Epoch 47/200
- - 1s - loss: 0.4944
+ - 2s - loss: 0.3788 - val_loss: 0.3812
 Epoch 48/200
- - 1s - loss: 0.4907
+ - 2s - loss: 0.3728 - val_loss: 0.3805
 Epoch 49/200
- - 1s - loss: 0.4975
+ - 2s - loss: 0.3791 - val_loss: 0.3801
 Epoch 50/200
- - 1s - loss: 0.4944
+ - 2s - loss: 0.3771 - val_loss: 0.3802
 Epoch 51/200
- - 1s - loss: 0.4975
+ - 2s - loss: 0.3781 - val_loss: 0.3800
 Epoch 52/200
- - 1s - loss: 0.5004
+ - 2s - loss: 0.3773 - val_loss: 0.3796
 Epoch 53/200
- - 1s - loss: 0.4927
+ - 2s - loss: 0.3734 - val_loss: 0.3799
 Epoch 54/200
- - 1s - loss: 0.4957
+ - 2s - loss: 0.3774 - val_loss: 0.3786
 Epoch 55/200
- - 1s - loss: 0.4944
+ - 2s - loss: 0.3790 - val_loss: 0.3791
 Epoch 56/200
- - 1s - loss: 0.4905
+ - 2s - loss: 0.3763 - val_loss: 0.3787
 Epoch 57/200
- - 1s - loss: 0.4931
+ - 2s - loss: 0.3745 - val_loss: 0.3789
 Epoch 58/200
- - 1s - loss: 0.4921
+ - 2s - loss: 0.3757 - val_loss: 0.3795
 Epoch 59/200
- - 1s - loss: 0.4913
+ - 2s - loss: 0.3733 - val_loss: 0.3776
 Epoch 60/200
- - 1s - loss: 0.4893
+ - 2s - loss: 0.3735 - val_loss: 0.3788
 Epoch 61/200
- - 1s - loss: 0.4912
+ - 2s - loss: 0.3715 - val_loss: 0.3775
 Epoch 62/200
- - 1s - loss: 0.4869
+ - 2s - loss: 0.3736 - val_loss: 0.3774
 Epoch 63/200
- - 1s - loss: 0.4905
+ - 2s - loss: 0.3698 - val_loss: 0.3772
 Epoch 64/200
- - 1s - loss: 0.4905
+ - 2s - loss: 0.3767 - val_loss: 0.3773
 Epoch 65/200
- - 1s - loss: 0.4928
+ - 2s - loss: 0.3699 - val_loss: 0.3768
 Epoch 66/200
- - 1s - loss: 0.4889
+ - 2s - loss: 0.3746 - val_loss: 0.3768
 Epoch 67/200
- - 1s - loss: 0.4996
+ - 2s - loss: 0.3739 - val_loss: 0.3765
 Epoch 68/200
- - 1s - loss: 0.4929
+ - 2s - loss: 0.3715 - val_loss: 0.3763
 Epoch 69/200
- - 1s - loss: 0.4901
+ - 2s - loss: 0.3775 - val_loss: 0.3760
 Epoch 70/200
- - 1s - loss: 0.4886
+ - 2s - loss: 0.3733 - val_loss: 0.3762
 Epoch 71/200
- - 1s - loss: 0.4895
+ - 2s - loss: 0.3732 - val_loss: 0.3757
 Epoch 72/200
- - 1s - loss: 0.4930
+ - 2s - loss: 0.3730 - val_loss: 0.3763
 Epoch 73/200
- - 1s - loss: 0.4902
+ - 2s - loss: 0.3767 - val_loss: 0.3758
 Epoch 74/200
- - 1s - loss: 0.4901
+ - 2s - loss: 0.3774 - val_loss: 0.3768
 Epoch 75/200
- - 1s - loss: 0.4903
+ - 2s - loss: 0.3730 - val_loss: 0.3754
 Epoch 76/200
- - 1s - loss: 0.4905
+ - 2s - loss: 0.3760 - val_loss: 0.3763
 Epoch 77/200
- - 1s - loss: 0.4914
+ - 2s - loss: 0.3709 - val_loss: 0.3750
 Epoch 78/200
- - 1s - loss: 0.4913
+ - 2s - loss: 0.3744 - val_loss: 0.3763
 Epoch 79/200
- - 1s - loss: 0.4885
+ - 2s - loss: 0.3716 - val_loss: 0.3748
 Epoch 80/200
- - 1s - loss: 0.4858
+ - 2s - loss: 0.3713 - val_loss: 0.3754
 Epoch 81/200
- - 1s - loss: 0.4873
+ - 2s - loss: 0.3699 - val_loss: 0.3748
 Epoch 82/200
- - 1s - loss: 0.4843
+ - 2s - loss: 0.3693 - val_loss: 0.3747
 Epoch 83/200
- - 1s - loss: 0.4857
+ - 2s - loss: 0.3701 - val_loss: 0.3745
 Epoch 84/200
- - 1s - loss: 0.4880
+ - 2s - loss: 0.3718 - val_loss: 0.3742
 Epoch 85/200
- - 1s - loss: 0.4892
+ - 2s - loss: 0.3674 - val_loss: 0.3739
 Epoch 86/200
- - 1s - loss: 0.4870
+ - 2s - loss: 0.3707 - val_loss: 0.3737
 Epoch 87/200
- - 1s - loss: 0.4919
+ - 2s - loss: 0.3766 - val_loss: 0.3741
 Epoch 88/200
- - 1s - loss: 0.4862
+ - 2s - loss: 0.3715 - val_loss: 0.3736
 Epoch 89/200
- - 1s - loss: 0.4885
+ - 2s - loss: 0.3682 - val_loss: 0.3734
 Epoch 90/200
- - 1s - loss: 0.4880
+ - 2s - loss: 0.3774 - val_loss: 0.3733
 Epoch 91/200
- - 1s - loss: 0.4845
+ - 2s - loss: 0.3706 - val_loss: 0.3734
 Epoch 92/200
- - 1s - loss: 0.4879
+ - 2s - loss: 0.3682 - val_loss: 0.3737
 Epoch 93/200
- - 1s - loss: 0.4849
+ - 2s - loss: 0.3710 - val_loss: 0.3732
 Epoch 94/200
- - 1s - loss: 0.4850
+ - 2s - loss: 0.3704 - val_loss: 0.3733
 Epoch 95/200
- - 1s - loss: 0.4864
+ - 2s - loss: 0.3705 - val_loss: 0.3736
 Epoch 96/200
- - 1s - loss: 0.4902
+ - 2s - loss: 0.3692 - val_loss: 0.3736
 Epoch 97/200
- - 1s - loss: 0.4891
+ - 2s - loss: 0.3737 - val_loss: 0.3731
 Epoch 98/200
- - 1s - loss: 0.4830
+ - 2s - loss: 0.3704 - val_loss: 0.3730
 Epoch 99/200
- - 1s - loss: 0.4850
+ - 2s - loss: 0.3669 - val_loss: 0.3726
 Epoch 100/200
- - 1s - loss: 0.4889
+ - 2s - loss: 0.3702 - val_loss: 0.3723
 Epoch 101/200
- - 1s - loss: 0.4852
+ - 2s - loss: 0.3683 - val_loss: 0.3724
 Epoch 102/200
- - 1s - loss: 0.4883
+ - 2s - loss: 0.3690 - val_loss: 0.3720
 Epoch 103/200
- - 1s - loss: 0.4804
+ - 2s - loss: 0.3737 - val_loss: 0.3721
 Epoch 104/200
- - 1s - loss: 0.4877
+ - 2s - loss: 0.3692 - val_loss: 0.3724
 Epoch 105/200
- - 1s - loss: 0.4843
+ - 2s - loss: 0.3626 - val_loss: 0.3719
 Epoch 106/200
- - 1s - loss: 0.4860
+ - 2s - loss: 0.3697 - val_loss: 0.3719
 Epoch 107/200
- - 1s - loss: 0.4825
+ - 2s - loss: 0.3721 - val_loss: 0.3716
 Epoch 108/200
- - 1s - loss: 0.4908
+ - 2s - loss: 0.3731 - val_loss: 0.3717
 Epoch 109/200
- - 1s - loss: 0.4843
+ - 2s - loss: 0.3715 - val_loss: 0.3716
 Epoch 110/200
- - 1s - loss: 0.4900
+ - 2s - loss: 0.3647 - val_loss: 0.3715
 Epoch 111/200
- - 1s - loss: 0.4855
+ - 2s - loss: 0.3739 - val_loss: 0.3714
 Epoch 112/200
- - 1s - loss: 0.4833
+ - 2s - loss: 0.3657 - val_loss: 0.3713
 Epoch 113/200
- - 1s - loss: 0.4843
+ - 2s - loss: 0.3715 - val_loss: 0.3717
 Epoch 114/200
- - 1s - loss: 0.4863
+ - 2s - loss: 0.3656 - val_loss: 0.3716
 Epoch 115/200
- - 1s - loss: 0.4829
+ - 2s - loss: 0.3692 - val_loss: 0.3712
 Epoch 116/200
- - 1s - loss: 0.4868
+ - 2s - loss: 0.3680 - val_loss: 0.3709
 Epoch 117/200
- - 1s - loss: 0.4839
+ - 2s - loss: 0.3693 - val_loss: 0.3710
 Epoch 118/200
- - 1s - loss: 0.4868
+ - 2s - loss: 0.3669 - val_loss: 0.3709
 Epoch 119/200
- - 1s - loss: 0.4860
+ - 2s - loss: 0.3677 - val_loss: 0.3708
 Epoch 120/200
- - 1s - loss: 0.4852
+ - 2s - loss: 0.3677 - val_loss: 0.3708
 Epoch 121/200
- - 1s - loss: 0.4804
+ - 2s - loss: 0.3695 - val_loss: 0.3707
 Epoch 122/200
- - 1s - loss: 0.4807
+ - 2s - loss: 0.3680 - val_loss: 0.3707
 Epoch 123/200
- - 1s - loss: 0.4833
+ - 2s - loss: 0.3672 - val_loss: 0.3704
 Epoch 124/200
- - 1s - loss: 0.4833
+ - 2s - loss: 0.3682 - val_loss: 0.3708
 Epoch 125/200
- - 1s - loss: 0.4900
+ - 2s - loss: 0.3707 - val_loss: 0.3704
 Epoch 126/200
- - 1s - loss: 0.4765
+ - 2s - loss: 0.3692 - val_loss: 0.3702
 Epoch 127/200
- - 1s - loss: 0.4803
+ - 2s - loss: 0.3684 - val_loss: 0.3702
 Epoch 128/200
- - 1s - loss: 0.4849
+ - 2s - loss: 0.3688 - val_loss: 0.3701
 Epoch 129/200
- - 1s - loss: 0.4829
+ - 2s - loss: 0.3649 - val_loss: 0.3700
 Epoch 130/200
- - 1s - loss: 0.4820
+ - 2s - loss: 0.3662 - val_loss: 0.3699
 Epoch 131/200
- - 1s - loss: 0.4797
+ - 2s - loss: 0.3662 - val_loss: 0.3703
 Epoch 132/200
- - 1s - loss: 0.4848
+ - 2s - loss: 0.3671 - val_loss: 0.3699
 Epoch 133/200
- - 1s - loss: 0.4891
+ - 2s - loss: 0.3683 - val_loss: 0.3696
 Epoch 134/200
- - 1s - loss: 0.4806
+ - 2s - loss: 0.3690 - val_loss: 0.3696
 Epoch 135/200
- - 1s - loss: 0.4849
+ - 2s - loss: 0.3675 - val_loss: 0.3697
 Epoch 136/200
- - 1s - loss: 0.4813
+ - 2s - loss: 0.3688 - val_loss: 0.3695
 Epoch 137/200
- - 1s - loss: 0.4826
+ - 2s - loss: 0.3679 - val_loss: 0.3696
 Epoch 138/200
- - 1s - loss: 0.4858
+ - 2s - loss: 0.3683 - val_loss: 0.3695
 Epoch 139/200
- - 1s - loss: 0.4836
+ - 2s - loss: 0.3717 - val_loss: 0.3697
 Epoch 140/200
- - 1s - loss: 0.4818
+ - 2s - loss: 0.3650 - val_loss: 0.3694
 Epoch 141/200
- - 1s - loss: 0.4812
+ - 2s - loss: 0.3651 - val_loss: 0.3697
 Epoch 142/200
- - 1s - loss: 0.4805
+ - 2s - loss: 0.3674 - val_loss: 0.3697
 Epoch 143/200
- - 1s - loss: 0.4799
+ - 2s - loss: 0.3682 - val_loss: 0.3691
 Epoch 144/200
- - 1s - loss: 0.4783
+ - 2s - loss: 0.3656 - val_loss: 0.3693
 Epoch 145/200
- - 1s - loss: 0.4809
+ - 2s - loss: 0.3651 - val_loss: 0.3690
 Epoch 146/200
- - 1s - loss: 0.4781
+ - 2s - loss: 0.3652 - val_loss: 0.3690
 Epoch 147/200
- - 1s - loss: 0.4857
+ - 2s - loss: 0.3654 - val_loss: 0.3691
 Epoch 148/200
- - 1s - loss: 0.4828
+ - 2s - loss: 0.3658 - val_loss: 0.3692
 Epoch 149/200
- - 1s - loss: 0.4772
+ - 2s - loss: 0.3656 - val_loss: 0.3688
 Epoch 150/200
- - 1s - loss: 0.4794
+ - 2s - loss: 0.3664 - val_loss: 0.3687
 Epoch 151/200
- - 1s - loss: 0.4798
+ - 2s - loss: 0.3668 - val_loss: 0.3687
 Epoch 152/200
- - 1s - loss: 0.4843
+ - 2s - loss: 0.3663 - val_loss: 0.3686
 Epoch 153/200
- - 1s - loss: 0.4827
+ - 2s - loss: 0.3680 - val_loss: 0.3686
 Epoch 154/200
- - 1s - loss: 0.4806
+ - 2s - loss: 0.3626 - val_loss: 0.3686
 Epoch 155/200
- - 1s - loss: 0.4799
+ - 2s - loss: 0.3679 - val_loss: 0.3686
 Epoch 156/200
- - 1s - loss: 0.4820
+ - 2s - loss: 0.3653 - val_loss: 0.3685
 Epoch 157/200
- - 1s - loss: 0.4784
+ - 2s - loss: 0.3653 - val_loss: 0.3684
 Epoch 158/200
- - 1s - loss: 0.4773
+ - 2s - loss: 0.3674 - val_loss: 0.3683
 Epoch 159/200
- - 1s - loss: 0.4803
+ - 2s - loss: 0.3689 - val_loss: 0.3684
 Epoch 160/200
- - 1s - loss: 0.4804
+ - 2s - loss: 0.3652 - val_loss: 0.3687
 Epoch 161/200
- - 1s - loss: 0.4860
+ - 2s - loss: 0.3664 - val_loss: 0.3682
 Epoch 162/200
- - 1s - loss: 0.4763
+ - 2s - loss: 0.3719 - val_loss: 0.3683
 Epoch 163/200
- - 1s - loss: 0.4845
+ - 2s - loss: 0.3657 - val_loss: 0.3681
 Epoch 164/200
- - 1s - loss: 0.4783
+ - 2s - loss: 0.3633 - val_loss: 0.3682
 Epoch 165/200
- - 1s - loss: 0.4802
+ - 2s - loss: 0.3619 - val_loss: 0.3680
 Epoch 166/200
- - 1s - loss: 0.4830
+ - 2s - loss: 0.3676 - val_loss: 0.3680
 Epoch 167/200
- - 1s - loss: 0.4784
+ - 2s - loss: 0.3670 - val_loss: 0.3679
 Epoch 168/200
- - 1s - loss: 0.4771
+ - 2s - loss: 0.3655 - val_loss: 0.3681
 Epoch 169/200
- - 1s - loss: 0.4767
+ - 2s - loss: 0.3654 - val_loss: 0.3678
 Epoch 170/200
- - 1s - loss: 0.4748
+ - 2s - loss: 0.3665 - val_loss: 0.3678
 Epoch 171/200
- - 1s - loss: 0.4769
+ - 2s - loss: 0.3638 - val_loss: 0.3678
 Epoch 172/200
- - 1s - loss: 0.4822
+ - 2s - loss: 0.3651 - val_loss: 0.3679
 Epoch 173/200
- - 1s - loss: 0.4797
+ - 2s - loss: 0.3692 - val_loss: 0.3676
 Epoch 174/200
- - 1s - loss: 0.4868
+ - 2s - loss: 0.3651 - val_loss: 0.3675
 Epoch 175/200
- - 1s - loss: 0.4844
+ - 2s - loss: 0.3638 - val_loss: 0.3676
 Epoch 176/200
- - 1s - loss: 0.4768
+ - 2s - loss: 0.3643 - val_loss: 0.3674
 Epoch 177/200
- - 1s - loss: 0.4853
+ - 2s - loss: 0.3686 - val_loss: 0.3674
 Epoch 178/200
- - 1s - loss: 0.4817
+ - 2s - loss: 0.3621 - val_loss: 0.3674
 Epoch 179/200
- - 1s - loss: 0.4791
+ - 2s - loss: 0.3650 - val_loss: 0.3675
 Epoch 180/200
- - 1s - loss: 0.4786
+ - 2s - loss: 0.3636 - val_loss: 0.3672
 Epoch 181/200
- - 1s - loss: 0.4775
+ - 2s - loss: 0.3680 - val_loss: 0.3672
 Epoch 182/200
- - 1s - loss: 0.4800
+ - 2s - loss: 0.3652 - val_loss: 0.3671
 Epoch 183/200
- - 1s - loss: 0.4801
+ - 2s - loss: 0.3630 - val_loss: 0.3673
 Epoch 184/200
- - 1s - loss: 0.4790
+ - 2s - loss: 0.3620 - val_loss: 0.3671
 Epoch 185/200
- - 1s - loss: 0.4793
+ - 2s - loss: 0.3660 - val_loss: 0.3670
 Epoch 186/200
- - 1s - loss: 0.4820
+ - 2s - loss: 0.3637 - val_loss: 0.3670
 Epoch 187/200
- - 1s - loss: 0.4823
+ - 2s - loss: 0.3665 - val_loss: 0.3670
 Epoch 188/200
- - 1s - loss: 0.4823
+ - 2s - loss: 0.3603 - val_loss: 0.3669
 Epoch 189/200
- - 1s - loss: 0.4780
+ - 2s - loss: 0.3653 - val_loss: 0.3669
 Epoch 190/200
- - 1s - loss: 0.4788
+ - 2s - loss: 0.3626 - val_loss: 0.3668
 Epoch 191/200
- - 1s - loss: 0.4823
+ - 2s - loss: 0.3682 - val_loss: 0.3668
 Epoch 192/200
- - 1s - loss: 0.4753
+ - 2s - loss: 0.3629 - val_loss: 0.3669
 Epoch 193/200
- - 1s - loss: 0.4783
+ - 2s - loss: 0.3649 - val_loss: 0.3670
 Epoch 194/200
- - 1s - loss: 0.4804
+ - 2s - loss: 0.3647 - val_loss: 0.3667
 Epoch 195/200
- - 1s - loss: 0.4779
+ - 2s - loss: 0.3666 - val_loss: 0.3667
 Epoch 196/200
- - 1s - loss: 0.4791
+ - 2s - loss: 0.3675 - val_loss: 0.3669
 Epoch 197/200
- - 1s - loss: 0.4827
+ - 2s - loss: 0.3668 - val_loss: 0.3667
 Epoch 198/200
- - 1s - loss: 0.4809
+ - 2s - loss: 0.3643 - val_loss: 0.3667
 Epoch 199/200
- - 1s - loss: 0.4794
+ - 2s - loss: 0.3656 - val_loss: 0.3665
 Epoch 200/200
- - 1s - loss: 0.4766
-[38;2;74;176;245m[1mProfile[0m ⏱  ·· Time elapsed in [1mClassifier-only fit, full[0m: ................ [1m534.7s[0m
-[38;2;74;176;245m[1mProfile[0m ⏱  Time elapsed in [1m@main[0m: ....................................... [1m866.5s[0m
+ - 2s - loss: 0.3633 - val_loss: 0.3667
+[38;2;74;176;245m[1mProfile[0m ⏱  ·· Time elapsed in [1mClassifier-only fit, full[0m: ................ [1m849.9s[0m
+[38;2;74;176;245m[1mProfile[0m ⏱  Time elapsed in [1m@main[0m: ...................................... [1m1765.0s[0m

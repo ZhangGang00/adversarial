@@ -386,13 +386,32 @@ def load_data (path, name='dataset', train=None, test=None, signal=None, backgro
         msk_sig = ~msk_bkg
         idx_sig = np.where(msk_sig)[0]
         idx_sig = np.random.choice(idx_sig, int(msk_sig.sum() * 0.1), replace=False)
+        # for data_1M_10M
+        #idx_sig0 = np.random.choice(idx_sig, int(msk_sig.sum() * 1), replace=False)
+        #idx_sig = np.random.choice(idx_sig, int(msk_sig.sum() * 0.2), replace=False)
+        # for data_3M_30M
+        #idx_sig0 = np.random.choice(idx_sig, int(msk_sig.sum() * 1), replace=False)
+        #idx_sig = np.random.choice(idx_sig, int(msk_sig.sum() * 0.9375), replace=False)
+        #msk_sig0 = np.zeros_like(msk_bkg).astype(bool)
+        #msk_sig0[idx_sig0] = True
         msk_sig = np.zeros_like(msk_bkg).astype(bool)
         msk_sig[idx_sig] = True
-        #data = data[msk_train | (msk_test & (msk_sig | msk_bkg))]
+        idx_bkg = np.where(msk_bkg)[0]
+        # to consider the asymmetry between signal and background for 300 GeV < pt < 400 GeV
+        #idx_bkg0 = np.random.choice(idx_bkg, int(msk_bkg.sum() * 0.45), replace=False)
+        #idx_bkg = np.random.choice(idx_bkg, int(msk_bkg.sum() * 0.045), replace=False)
+        # 200 GeV < pt < 2000 GeV
+        #idx_bkg0 = np.random.choice(idx_bkg, int(msk_bkg.sum() * 1), replace=False)
+        #idx_bkg = np.random.choice(idx_bkg, int(msk_bkg.sum() * 1), replace=False)
+        #msk_bkg0 = np.zeros_like(msk_bkg).astype(bool)
+        #msk_bkg0[idx_bkg0] = True
+        msk_bkg = np.zeros_like(msk_bkg).astype(bool)
+        msk_bkg[idx_bkg] = True
+        data = data[msk_train | (msk_test & (msk_sig | msk_bkg))]
 
         # To repeat the results in arXiv paper
-        msk_pt = (data['pt']>900.0) & (data['pt']<1100.0)
-        data = data[(msk_train | (msk_test & (msk_sig | msk_bkg))) & msk_pt]
+        #msk_pt = (data['pt']>300.0) & (data['pt']<400.0)
+        #data = data[((msk_train & (msk_sig0 | msk_bkg0)) | (msk_test & (msk_sig | msk_bkg))) & msk_pt]
     except:
         log.warning("Some of the keys ['train', 'signal'] were not present in file {}".format(path))
         pass

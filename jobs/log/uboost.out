@@ -1,5 +1,27 @@
-GPU 0: Tesla V100-SXM2-32GB (UUID: GPU-82803907-3eec-c3dd-6b78-491c1cab6e5a)
+GPU 0: Tesla V100-SXM2-32GB (UUID: GPU-12b00d91-23db-bd0c-5df6-247205e1a73e)
 Allocate GPU cards : 0
 🚨  [0;38;5;196mGPU mode requested. Make sure you have Cuda/CuDNN installed[0m
 🎃  [0;38;5;208mActivating conda environment 'adversarial-gpu' on local platform[0m
 pwd:  /hpcfs/bes/mlgpu/gang/adversarial
+[38;2;74;176;245m[1mProfile[0m ⏱  Starting [1m@main[0m
+[38;2;74;176;245m[1mProfile[0m ⏱  ·· Starting [1m@initialise[0m
+[38;2;74;176;245m[1mProfile[0m ⏱  ·· Time elapsed in [1m@initialise[0m: ................................ [1m0.1s[0m
+[38;2;74;176;245m[1mProfile[0m ⏱  ·· Starting [1m@load_data[0m
+[38;2;74;176;245m[1mProfile[0m ⏱  ·· Time elapsed in [1m@load_data[0m: ............................... [1m706.8s[0m
+[38;2;74;176;245m[1mProfile[0m ⏱  ·· Starting [1mFitting uBoost classifier[0m
+[38;2;74;176;245m[1mProfile[0m ⏱  ·· Time elapsed in [1mFitting uBoost classifier[0m: .............. [1m18008.6s[0m
+[38;2;74;176;245m[1mProfile[0m ⏱  ·· Starting [1mSaving classifiers[0m
+mkdir: Creating output directory:
+  models/uboost/
+[38;2;74;176;245m[1mProfile[0m ⏱  ·· Time elapsed in [1mSaving classifiers[0m: ........................ [1m29.9s[0m
+[38;2;74;176;245m[1mProfile[0m ⏱  ·· Starting [1mSaving classifiers[0m
+[38;2;74;176;245m[1mProfile[0m ⏱  ·· Time elapsed in [1mSaving classifiers[0m: ......................... [1m4.8s[0m
+[38;2;74;176;245m[1mProfile[0m ⏱  ·· Starting [1mSaving classifiers[0m
+[38;2;74;176;245m[1mProfile[0m ⏱  ·· Time elapsed in [1mSaving classifiers[0m: ......................... [1m4.9s[0m
+[38;2;74;176;245m[1mProfile[0m ⏱  ·· Starting [1mSaving classifiers[0m
+[38;2;74;176;245m[1mProfile[0m ⏱  ·· Time elapsed in [1mSaving classifiers[0m: ......................... [1m6.3s[0m
+[38;2;74;176;245m[1mProfile[0m ⏱  ·· Starting [1mSaving classifiers[0m
+[38;2;74;176;245m[1mProfile[0m ⏱  ·· Time elapsed in [1mSaving classifiers[0m: ......................... [1m5.8s[0m
+[38;2;74;176;245m[1mProfile[0m ⏱  ·· Starting [1mSaving classifiers[0m
+[38;2;74;176;245m[1mProfile[0m ⏱  ·· Time elapsed in [1mSaving classifiers[0m: ......................... [1m4.9s[0m
+[38;2;74;176;245m[1mProfile[0m ⏱  Time elapsed in [1m@main[0m: ..................................... [1m18772.2s[0m

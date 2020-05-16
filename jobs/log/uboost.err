@@ -1,3 +1,4 @@
-INFO: Found   151028 training and   150575 test samples for signal
-INFO: Found   113286 training and  1136518 test samples for background
-slurmstepd: error: *** JOB 342831 ON gpu028 CANCELLED AT 2020-04-04T13:52:36 ***
+/afs/ihep.ac.cn/users/g/gang/hpcfs/software/miniconda2/envs/adversarial-gpu/lib/python2.7/site-packages/matplotlib/font_manager.py:280: UserWarning: Matplotlib is building the font cache using fc-list. This may take a moment.
+  'Matplotlib is building the font cache using fc-list. '
+INFO: Found   143404 training and   143591 test samples for signal
+INFO: Found   147734 training and   147110 test samples for background

@@ -4,7 +4,7 @@
 #SBATCH --qos=normal
 #SBATCH --account=mlgpu
 #SBATCH --ntasks=1
-#SBATCH --mem-per-cpu=16000
+#SBATCH --mem-per-cpu=8000
 #SBATCH --gres=gpu:v100:1
 
 /usr/bin/nvidia-smi -L
@@ -14,7 +14,7 @@ cd /hpcfs/bes/mlgpu/gang/adversarial
 source setup.sh
 echo 'pwd: ' $(pwd)
 
-#python -m run.disco.train --gpu --devices=1 --verbose --optimise-classifier --config='./configs/default_disco_lambda50.json'
-python -m run.disco.train --gpu --devices=1 --verbose --train-classifier --config='./configs/default_disco_lambda50.json'
+#python -m run.disco.train --gpu --devices=1 --verbose --optimise-classifier --config='./configs/default_disco_lambda70.json'
+python -m run.disco.train --gpu --devices=1 --verbose --train-classifier --config='./configs/default_disco_lambda70.json'
 
 

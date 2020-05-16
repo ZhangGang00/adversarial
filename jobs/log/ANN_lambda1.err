@@ -1,3 +1,5 @@
+/afs/ihep.ac.cn/users/g/gang/hpcfs/software/miniconda2/envs/adversarial-gpu/lib/python2.7/site-packages/matplotlib/font_manager.py:280: UserWarning: Matplotlib is building the font cache using fc-list. This may take a moment.
+  'Matplotlib is building the font cache using fc-list. '
 INFO: Found 36 Intel(R) Xeon(R) Gold 6240 CPU @ 2.60GHz devices with 18 cores each.
 Using TensorFlow backend.
 INFO: Running 'run/adversarial/common.pyc'
@@ -7,8 +9,8 @@ INFO: Python version: 2.7.14
 INFO: Numpy  version: 1.16.5
 INFO: Keras  version: 2.1.5
 INFO: Using keras backend: 'tensorflow'
-INFO: Found   151028 training and   150575 test samples for signal
-INFO: Found   113286 training and  1136518 test samples for background
+INFO: Found   143404 training and   143591 test samples for signal
+INFO: Found   147734 training and   147110 test samples for background
 INFO: load_data: Selecting only training data.
 INFO: Implementing gradient reversal layer in TensorFlow
 INFO: Loading cross-validation classifiers from file
