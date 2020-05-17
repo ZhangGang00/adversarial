@@ -150,12 +150,33 @@ def main (args):
         print_env(args, cfg)
         pass
 
-
     # Loading data
     # --------------------------------------------------------------------------
-    data, features, features_decorrelation = load_data(args.input + 'data_10000.h5', train=True)
+    #data, features, features_decorrelation = load_data(args.input + 'data_10000.h5')
+    data, features, features_decorrelation = load_data(args.input + 'data.h5')
     #data, features, features_decorrelation = load_data(args.input + 'data.h5', train=True)
-    #features.insert(0,'m')
+    '''
+    kNN_var = 'D2-k#minusNN'
+    with Profile("Add variables"):
+        # Tau21DDT
+        from run.ddt.common import add_ddt
+        add_ddt(data, path='models/ddt/ddt.pkl.gz')
+
+        # D2-CSS
+        #from run.css.common import add_css
+        #add_css("D2", data)
+
+        # D2-kNN
+        from run.knn.common import add_knn, VAR as kNN_basevar, EFF as kNN_eff
+        print "k-NN base variable: {} (cp. {})".format(kNN_basevar, kNN_var)
+        add_knn(data, newfeat=kNN_var, path='models/knn/knn_{}_{}.pkl.gz'.format(kNN_basevar, kNN_eff))
+        pass
+    features.remove('Tau21')
+    features.remove('D2')
+    features.insert(0,'Tau21DDT')
+    #features.insert(0,'D2CSS')
+    features.insert(0,'D2-k#minusNN')
+    '''
     num_features = len(features)
 
     # Regulsarisation parameter
@@ -246,7 +267,8 @@ def main (args):
                     histories.append(ret.history)
 
                     # Save classifier model and training history to file, both
-                    # in unique output directory and in the directory
+                    # in unique output directory and in the directory for pre-
+                    # trained classifiers
                     save([args.output, basedir], name, classifier, ret.history)
                     pass
                 pass # end: k-fold cross-validation
@@ -300,16 +322,22 @@ def main (args):
                 pass
 
             # Prepare arrays
-            X = data[features].values
-            Y = np.stack((data['signal'].values, data['m'].values), axis=1)
-            W = data['weight_clf'].values
+            X = data[features].values[data['train']  == 1]
+            Y = np.stack((data['signal'].values[data['train']  == 1], data['m'].values[data['train']  == 1]), axis=1)
+            W = data['weight_clf'].values[data['train']  == 1]
+            validation_data = (
+                data[features].values[data['train']  == 0],
+                np.stack((data['signal'].values[data['train']  == 0], data['m'].values[data['train']  == 0]), axis=1),
+                data['weight_clf'].values[data['train']  == 0]
+             )
+
             print 'Main X shape:', X.shape
             print 'Main Y shape:', Y.shape
             #print 'Y[:,0] = ', Y[:,0]
             #print 'Y[:,1] = ', Y[:,1]
 
             # Fit classifier model
-            ret = parallelised.fit(X, Y, sample_weight=W, callbacks=callbacks, **cfg['classifier']['fit'])
+            ret = parallelised.fit(X, Y, sample_weight=W, validation_data=validation_data, callbacks=callbacks, **cfg['classifier']['fit'])
 
             # Save classifier model and training history to file, both in unique
             # output directory and in the directory for pre-trained classifiers.

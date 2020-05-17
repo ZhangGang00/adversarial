@@ -97,6 +97,7 @@ def main (args):
     # -- DisCo scan
     disco_lambda_reg  = 30.
     disco_lambda_regs = sorted([1., 5., 10., 30., 50.])
+    #disco_lambda_regs = sorted([1., 5., 10., 30., 50., 70., 100., 150., 300., 500.])
     disco_vars    = list()
     disco_lambda_strs = list()
     for disco_lambda_reg_ in disco_lambda_regs:
@@ -199,8 +200,8 @@ def perform_studies (data, args, tagger_features, ann_vars, uboost_vars, disco_v
     Method delegating performance studies.
     """
     masscuts  = [False, True]
-    #pt_ranges = [None, (300, 400), (200, 500), (500, 1000), (1000, 2000)]
-    pt_ranges = [None]
+    pt_ranges = [None, (300, 400), (200, 500), (500, 1000), (1000, 2000)]
+    #pt_ranges = [None]
 
     # Perform jet mass distribution study
     with Profile("Study: Jet mass"):

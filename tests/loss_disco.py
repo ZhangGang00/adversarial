@@ -58,7 +58,10 @@ def plot_classifier_training_loss (num_folds, basedir='models/disco/classifier/c
         pass
 
     # Get paths to classifier training losses
-    paths = sorted(glob.glob(basedir + '/history__crossval_classifier_lambda30__*of{}.json'.format(num_folds)))
+    #paths = sorted(glob.glob(basedir + '/history__crossval_classifier_lambda30__*of{}.json'.format(num_folds)))
+    basedir = 'models/disco/classifier/full/'
+    paths = sorted(glob.glob(basedir + '/history__classifier_lambda30.json'))
+    #paths = sorted(glob.glob('/afs/cern.ch/work/g/gang/boosted_dijetISR/my_adversarial/history__classifier_lambda30.json'))
 
     if len(paths) == 0:
         print "No models found for classifier CV study."
@@ -82,8 +85,8 @@ def plot_classifier_training_loss (num_folds, basedir='models/disco/classifier/c
         losses['train'].append(loss)
         pass
 
-    print 'losses[val]:',losses['val']
-    print 'losses[train]:',losses['train']
+    #print 'losses[val]:',losses['val']
+    #print 'losses[train]:',losses['train']
 
     # Define variable(s)
     bins     = np.arange(len(loss))
@@ -100,8 +103,8 @@ def plot_classifier_training_loss (num_folds, basedir='models/disco/classifier/c
         # Histograms
         loss_mean = np.nanmean(losses[key], axis=0)
         loss_std  = np.nanstd (losses[key], axis=0)
-        print 'loss_mean:',loss_mean
-        print 'loss_std:',loss_std
+        #print 'loss_mean:',loss_mean
+        #print 'loss_std:',loss_std
         hist = ROOT.TH1F(key + '_loss', "", len(histbins) - 1, histbins)
         for idx in range(len(loss_mean)):
             hist.SetBinContent(idx + 1, loss_mean[idx])
@@ -109,7 +112,7 @@ def plot_classifier_training_loss (num_folds, basedir='models/disco/classifier/c
             pass
 
         c.hist([0], bins=[0, max(bins)], linewidth=0, linestyle=0)  # Force correct x-axis
-        c.hist(hist, fillcolor=colour, alpha=0.3, option='LE3')
+        #c.hist(hist, fillcolor=colour, alpha=0.3, option='LE3')
         c.hist(hist, linecolor=colour, linewidth=3, linestyle=linestyle, option='HISTL')
 
         categories += [(name,
@@ -121,9 +124,11 @@ def plot_classifier_training_loss (num_folds, basedir='models/disco/classifier/c
     # Decorations
     c.pads()[0]._yaxis().SetNdivisions(505)
     c.xlabel("Training epoch")
-    c.ylabel("Cross-validation classifier loss, L_{clf}")
+    #c.ylabel("Cross-validation classifier loss, L_{clf}")
+    c.ylabel("Classifier loss, L_{clf}")
     c.xlim(0, max(bins))
-    c.ylim(0.3, 2)
+    #c.ylim(0.3, 2)
+    c.ylim(0., 5.)
     c.legend(categories=categories, width=0.25)  # ..., xmin=0.475
     c.text(TEXT + ["#it{W} jet tagging", "Neural network (NN) + DisCo classifier"],
            qualifier=QUALIFIER)
